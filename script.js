@@ -1,12 +1,14 @@
 let questions = [];
+let currentQuestion = 0;
 
 fetch("questions.json")
   .then(response => response.json())
   .then(data => {
     questions = data;
-    startQuiz();
+    showQuestion();
   });
 
-function startQuiz() {
-  console.log(questions);
+function showQuestion() {
+  document.getElementById("word").textContent =
+    questions[currentQuestion].word;
 }
