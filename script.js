@@ -10,7 +10,6 @@ const nextButton = document.getElementById("nextButton");
 const scoreText = document.getElementById("score");
 
 
-// questions.jsonを読み込む
 fetch("questions.json")
     .then(response => response.json())
     .then(data => {
@@ -23,11 +22,17 @@ fetch("questions.json")
     });
 
 
-// 問題表示
 function showQuestion() {
 
+    if (!questions[currentQuestion]) {
+        return;
+    }
+
     answered = false;
+
     resultText.textContent = "";
+    resultText.className = "";
+
     nextButton.style.display = "none";
 
     let q = questions[currentQuestion];
@@ -35,23 +40,29 @@ function showQuestion() {
     questionText.textContent =
         `${currentQuestion + 1}問目：${q.question}`;
 
+
     choicesArea.innerHTML = "";
+
 
     q.choices.forEach(choice => {
 
-        let button = document.createElement("button");
+        const button = document.createElement("button");
+
         button.textContent = choice;
         button.className = "choice";
 
-        button.onclick = function () {
+
+        button.onclick = () => {
 
             if (answered) return;
 
             answered = true;
 
+
             if (choice === q.answer) {
 
                 score++;
+
                 resultText.textContent = "⭕ 正解！";
                 resultText.className = "correct";
 
@@ -59,51 +70,61 @@ function showQuestion() {
 
                 resultText.textContent =
                     `❌ 正解は「${q.answer}」`;
+
                 resultText.className = "incorrect";
 
             }
 
-            nextButton.style.display = "inline-block";
+
             scoreText.textContent =
                 `現在の得点：${score} / ${questions.length}`;
+
+
+            nextButton.style.display = "inline-block";
+
         };
+
 
         choicesArea.appendChild(button);
 
     });
+
 }
 
 
-// 次の問題
-nextButton.onclick = function(){
+
+nextButton.onclick = () => {
 
     currentQuestion++;
 
-    if(currentQuestion < questions.length){
+
+    if (currentQuestion < questions.length) {
 
         showQuestion();
 
-    }else{
+    } else {
 
         questionText.textContent =
             "🎉 終了しました！";
 
+
         choicesArea.innerHTML = "";
+
 
         resultText.textContent =
             `あなたの得点は ${score} / ${questions.length} 点です！`;
 
+
         nextButton.style.display = "none";
+
     }
 
 };
 
 
-// 配列をランダム化
-function shuffle(array){
 
-    return array.sort(
-        () => Math.random() - 0.5
-    );
+function shuffle(array) {
+
+    return array.sort(() => Math.random() - 0.5);
 
 }
