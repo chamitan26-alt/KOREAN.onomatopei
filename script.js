@@ -1,3 +1,6 @@
+window.onerror = function(message, source, lineno) {
+  alert(message + "（" + lineno + "行目）");
+};
 let questions = [];
 let quiz = [];
 let currentQuestion = 0;
