@@ -1,4 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(){
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
@@ -17,22 +16,20 @@ const scoreText = document.getElementById("score");
 
 
 
-
-// クイズ開始
+// スタートボタン
 startButton.onclick = function(){
 
     startArea.style.display = "none";
     quizArea.style.display = "block";
 
-    startQuiz();
+    loadQuiz();
 
 };
 
 
 
-
 // 問題読み込み
-function startQuiz(){
+function loadQuiz(){
 
     score = 0;
     currentQuestion = 0;
@@ -48,25 +45,18 @@ function startQuiz(){
 
     .then(data => {
 
-
-        questions =
-        shuffle(data).slice(0,10);
-
+        questions = shuffle(data).slice(0,10);
 
         showQuestion();
 
-
     })
 
-    .catch(error=>{
-
+    .catch(error => {
 
         questionText.innerHTML =
         "問題データを読み込めませんでした";
 
-
         console.log(error);
-
 
     });
 
@@ -74,13 +64,10 @@ function startQuiz(){
 
 
 
-
 // 問題表示
 function showQuestion(){
 
-
     answered = false;
-
 
     resultText.innerHTML = "";
     nextArea.innerHTML = "";
@@ -91,49 +78,32 @@ function showQuestion(){
 
     questionText.innerHTML =
     (currentQuestion + 1)
-    +
-    "問目<br>"
-    +
-    q.question;
+    + "問目<br>"
+    + q.question;
 
 
 
     // 発音ボタン
 
-    let soundButton =
-    document.createElement("button");
-
+    let soundButton = document.createElement("button");
 
     soundButton.innerHTML =
-    "🔊 発音を聞く";
+    "🔊 韓国語の発音";
 
+    soundButton.onclick = function(){
 
-    soundButton.onclick=function(){
+        let korean = q.question.match(/[가-힣]+/);
 
+        if(korean){
 
-        let koreanWord =
-        q.question.match(/[가-힣]+/);
+            let utter =
+            new SpeechSynthesisUtterance(korean[0]);
 
+            utter.lang = "ko-KR";
 
-        if(koreanWord){
-
-
-            let utterance =
-            new SpeechSynthesisUtterance(
-                koreanWord[0]
-            );
-
-
-            utterance.lang =
-            "ko-KR";
-
-
-            speechSynthesis.speak(
-                utterance
-            );
+            speechSynthesis.speak(utter);
 
         }
-
 
     };
 
@@ -142,11 +112,7 @@ function showQuestion(){
         document.createElement("br")
     );
 
-
-    questionText.appendChild(
-        soundButton
-    );
-
+    questionText.appendChild(soundButton);
 
 
 
@@ -158,35 +124,25 @@ function showQuestion(){
 
 
 
-    choices.forEach(choice=>{
+    choices.forEach(choice => {
 
 
         let button =
         document.createElement("button");
 
 
-        button.innerHTML =
-        choice;
+        button.innerHTML = choice;
 
 
-
-        button.onclick=function(){
-
+        button.onclick = function(){
 
             if(answered)return;
 
+            answered = true;
 
-            answered=true;
-
-
-            checkAnswer(
-                choice,
-                button
-            );
-
+            checkAnswer(choice, button);
 
         };
-
 
 
         choicesBox.appendChild(button);
@@ -195,42 +151,31 @@ function showQuestion(){
     });
 
 
-
 }
 
 
 
-
 // 答え確認
-function checkAnswer(choice,button){
+function checkAnswer(choice, button){
 
-
-    let q =
-    questions[currentQuestion];
-
+    let q = questions[currentQuestion];
 
 
     let buttons =
     choicesBox.querySelectorAll("button");
 
 
+    buttons.forEach(btn => {
 
-    buttons.forEach(btn=>{
-
-
-        btn.disabled=true;
-
+        btn.disabled = true;
 
 
         if(btn.innerHTML === q.answer){
 
-
-            btn.style.background =
+            btn.style.backgroundColor =
             "#90ee90";
 
-
         }
-
 
     });
 
@@ -238,114 +183,76 @@ function checkAnswer(choice,button){
 
     if(choice === q.answer){
 
-
         score++;
-
 
         resultText.innerHTML =
         "🎉 正解！";
 
 
-
     }else{
 
-
-        button.style.background =
+        button.style.backgroundColor =
         "#ff9999";
 
 
         resultText.innerHTML =
         "❌ 残念… 正解は「"
-        +
-        q.answer
-        +
-        "」";
-
+        + q.answer
+        + "」";
 
     }
 
 
 
-
-    // 解説
-
     resultText.innerHTML +=
 
-
     "<br><br>📖 解説<br>"
-    +
-    q.meaning
+    + q.meaning
 
-    +
+    + "<br><br>📝 例文<br>"
+    + q.example
 
-    "<br><br>📝 例文<br>"
-    +
-    q.example
-
-    +
-
-    "<br>"
-    +
-    q.translation;
+    + "<br>"
+    + q.translation;
 
 
 
     scoreText.innerHTML =
-
     "現在の得点："
-
-    +
-
-    score
-
-    +
-
-    " / 10";
+    + score
+    + " / 10";
 
 
 
-
-
-    let next =
+    let nextButton =
     document.createElement("button");
 
 
-
-    next.innerHTML =
+    nextButton.innerHTML =
     "次の問題へ";
 
 
 
-    next.onclick=function(){
+    nextButton.onclick = function(){
 
 
         currentQuestion++;
 
 
-
         if(currentQuestion < questions.length){
-
 
             showQuestion();
 
-
-
         }else{
-
 
             showResult();
 
-
         }
-
-
 
     };
 
 
-
-    nextArea.appendChild(next);
-
+    nextArea.appendChild(nextButton);
 
 
 }
@@ -353,93 +260,63 @@ function checkAnswer(choice,button){
 
 
 
-
-// 結果表示
+// 結果
 function showResult(){
 
 
     questionText.innerHTML =
-    "終了！";
+    "🎊 終了！";
 
 
-    choicesBox.innerHTML="";
+    choicesBox.innerHTML = "";
 
 
     let rate =
-    Math.round(
-        score / 10 * 100
-    );
-
+    Math.round(score / 10 * 100);
 
 
     resultText.innerHTML =
 
-
     "あなたの得点は "
-
-    +
-
-    score
-
-    +
-
-    " / 10 点でした✨"
-
-    +
-
-    "<br>正解率："
-
-    +
-
-    rate
-
-    +
-
-    "%";
+    + score
+    + " / 10 点でした✨"
+    + "<br>"
+    + "正解率："
+    + rate
+    + "%";
 
 
 
-    nextArea.innerHTML="";
+    nextArea.innerHTML = "";
 
 
-
-    let retry =
+    let retryButton =
     document.createElement("button");
 
 
-
-    retry.innerHTML =
+    retryButton.innerHTML =
     "もう一度挑戦する";
 
 
+    retryButton.onclick = function(){
 
-    retry.onclick=function(){
-
-
-        startQuiz();
-
+        loadQuiz();
 
     };
 
 
-
-    nextArea.appendChild(retry);
-
+    nextArea.appendChild(retryButton);
 
 
 }
-
 
 
 
 // シャッフル
 function shuffle(array){
 
-
     return array.sort(
         ()=>Math.random()-0.5
     );
 
-
 }
-});
