@@ -47,6 +47,7 @@ document.getElementById("startButton").onclick = function(){
     currentQuestion = 0;
 
 
+    // 問題順もランダム
     questions.sort(function(){
 
         return Math.random() - 0.5;
@@ -73,7 +74,9 @@ function showQuestion(){
 
 
     document.getElementById("score").innerHTML =
+
     "現在の得点：" + score + " / 10";
+
 
 
     document.getElementById("question").innerHTML =
@@ -87,13 +90,28 @@ function showQuestion(){
     let html = "";
 
 
-    q.choices.forEach(function(choice){
+
+    // 選択肢をシャッフル
+    let shuffledChoices = [...q.choices];
+
+
+    shuffledChoices.sort(function(){
+
+        return Math.random() - 0.5;
+
+    });
+
+
+
+    shuffledChoices.forEach(function(choice){
 
 
         html +=
 
         '<button class="choiceButton">' +
+
         choice +
+
         '</button>';
 
 
@@ -112,12 +130,15 @@ function showQuestion(){
 
 
     document.querySelectorAll(".choiceButton")
+
     .forEach(function(button){
 
 
         button.onclick = function(){
 
-            checkAnswer(this.innerHTML);
+
+            checkAnswer(this.textContent);
+
 
         };
 
@@ -146,46 +167,72 @@ function checkAnswer(choice){
     let q = questions[currentQuestion];
 
 
+    let result = "";
+
+
+
     if(choice === q.answer){
+
 
         score++;
 
 
-        document.getElementById("result").innerHTML =
+        result +=
 
-        "<h3>✨正解！</h3>";
+        "<h3>✨ 正解！</h3>";
 
 
     }else{
 
 
-        document.getElementById("result").innerHTML =
+        result +=
 
-        "<h3>正解は「" +
+        "<h3>💡 正解は「" +
+
         q.answer +
+
         "」です</h3>";
+
 
     }
 
 
 
-    document.getElementById("result").innerHTML +=
+    result +=
 
     "<p><b>読み方：</b>" +
+
     q.pronunciation +
+
     "</p>" +
 
     "<p><b>意味：</b>" +
+
     q.meaning +
+
     "</p>" +
 
     "<p><b>例文：</b><br>" +
+
     q.example +
+
     "</p>" +
 
     "<p><b>日本語：</b><br>" +
+
     q.translation +
+
     "</p>";
+
+
+
+    document.getElementById("result").innerHTML = result;
+
+
+
+    document.getElementById("score").innerHTML =
+
+    "現在の得点：" + score + " / 10";
 
 
 
@@ -196,7 +243,6 @@ function checkAnswer(choice){
 
 
 }
-
 
 
 
@@ -226,14 +272,13 @@ function nextQuestion(){
 
 
 
-
 // 結果
 function showResult(){
 
 
     document.getElementById("question").innerHTML =
 
-    "🎉10問チャレンジ終了！";
+    "🎉 10問チャレンジ終了！";
 
 
     document.getElementById("choices").innerHTML = "";
@@ -244,8 +289,11 @@ function showResult(){
     "<h3>結果</h3>" +
 
     "<p>10問中 " +
+
     score +
+
     "問正解でした！</p>";
+
 
 
     document.getElementById("nextArea").innerHTML = "";
