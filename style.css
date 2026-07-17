@@ -180,3 +180,35 @@ hr {
     margin: 15px 0;
 
 }
+#nextArea button {
+
+    width: 95%;
+
+    min-height: 70px;
+
+    margin: 30px auto 15px;
+
+    display: block;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: #e86a8d;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+
+}
+
+
+#nextArea button:active {
+
+    transform: scale(0.96);
+
+}
