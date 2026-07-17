@@ -65,14 +65,16 @@ function showQuestion(){
 
     soundButton.onclick=function(){
 
-        let utterance =
-        new SpeechSynthesisUtterance(q.question);
+    let word = q.question.split(" ")[0];
 
-        utterance.lang="ko-KR";
+    let utterance =
+    new SpeechSynthesisUtterance(word);
 
-        speechSynthesis.speak(utterance);
+    utterance.lang="ko-KR";
 
-    };
+    speechSynthesis.speak(utterance);
+
+};
 
 
     questionText.appendChild(
