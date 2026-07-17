@@ -20,7 +20,7 @@ const explanationText = document.getElementById("explanation");
 const nextButton = document.getElementById("nextButton");
 const speakButton = document.getElementById("speakButton");
 const scoreText = document.getElementById("score");
-
+const homeButton = document.getElementById("homeButton");
 
 
 // データ読み込み
@@ -261,5 +261,19 @@ nextButton.onclick = function(){
 
 
     }
+
+};
+homeButton.onclick = function(){
+
+    // クイズ画面を閉じる
+    quizArea.style.display = "none";
+
+    // トップ画面表示
+    startArea.style.display = "block";
+
+
+    // 初期化
+    currentQuestion = 0;
+    score = 0;
 
 };
