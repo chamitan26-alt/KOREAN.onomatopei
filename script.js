@@ -249,12 +249,24 @@ nextButton.onclick = function(){
         score +
         " / 10</p>" +
 
-        "<button onclick='location.reload()'>"
-        +
-        "もう一度挑戦する"
-        +
-        "</button>";
+       quizArea.innerHTML =
 
-    }
+"<h2>終了！</h2>" +
+
+"<p>得点：" +
+score +
+" / 10</p>" +
+
+"<button id='retryButton'>"
++
+"もう一度挑戦する"
++
+"</button>";
+
+
+
+document.getElementById("retryButton").onclick = function(){
+
+    location.reload();
 
 };
