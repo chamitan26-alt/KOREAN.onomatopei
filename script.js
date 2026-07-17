@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function(){
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
@@ -441,3 +442,4 @@ function shuffle(array){
 
 
 }
+});
