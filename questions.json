@@ -1,92 +1,109 @@
-[
-  {
-    "id": 1,
-    "word": "두근두근",
-    "choices": ["ドキドキ", "キラキラ", "ぐつぐつ", "こっそり"],
-    "answer": 0,
-    "example_ko": "시험이라 두근두근해요.",
-    "example_ja": "試験なのでドキドキします。",
-    "pronunciation": "トゥグントゥグン"
-  },
-  {
-    "id": 2,
-    "word": "반짝반짝",
-    "choices": ["キラキラ", "ドキドキ", "ぐっすり", "ガタガタ"],
-    "answer": 0,
-    "example_ko": "별이 반짝반짝 빛나요.",
-    "example_ja": "星がキラキラ光っています。",
-    "pronunciation": "パンチャクパンチャク"
-  },
-  {
-    "id": 3,
-    "word": "보글보글",
-    "choices": ["ぐつぐつ", "サラサラ", "ドキドキ", "キラキラ"],
-    "answer": 0,
-    "example_ko": "찌개가 보글보글 끓어요.",
-    "example_ja": "チゲがぐつぐつ煮えています。",
-    "pronunciation": "ポグルポグル"
-  },
-  {
-    "id": 4,
-    "word": "반들반들",
-    "choices": ["つるつる", "ざらざら", "ぐるぐる", "ふらふら"],
-    "answer": 0,
-    "example_ko": "사과가 반들반들해요.",
-    "example_ja": "りんごがつるつるしています。",
-    "pronunciation": "パンドゥルパンドゥル"
-  },
-  {
-    "id": 5,
-    "word": "살금살금",
-    "choices": ["こっそり", "どんどん", "ぐっすり", "きらきら"],
-    "answer": 0,
-    "example_ko": "고양이가 살금살금 걸어요.",
-    "example_ja": "猫がこっそり歩きます。",
-    "pronunciation": "サルグムサルグム"
-  },
-  {
-    "id": 6,
-    "word": "푹",
-    "choices": ["ぐっすり", "どきどき", "ぐつぐつ", "さらさら"],
-    "answer": 0,
-    "example_ko": "푹 쉬세요.",
-    "example_ja": "ゆっくり休んでください。",
-    "pronunciation": "プク"
-  },
-  {
-    "id": 7,
-    "word": "주룩주룩",
-    "choices": ["ザーザー", "きらきら", "ぐるぐる", "ぶるぶる"],
-    "answer": 0,
-    "example_ko": "비가 주룩주룩 내려요.",
-    "example_ja": "雨がザーザー降っています。",
-    "pronunciation": "チュルクチュルク"
-  },
-  {
-    "id": 8,
-    "word": "활짝",
-    "choices": ["にっこり", "どきどき", "ぐらぐら", "しーん"],
-    "answer": 0,
-    "example_ko": "활짝 웃었어요.",
-    "example_ja": "にっこり笑いました。",
-    "pronunciation": "ファルチャク"
-  },
-  {
-    "id": 9,
-    "word": "빙글빙글",
-    "choices": ["くるくる", "ごろごろ", "どきどき", "さらさら"],
-    "answer": 0,
-    "example_ko": "빙글빙글 돌았어요.",
-    "example_ja": "くるくる回りました。",
-    "pronunciation": "ピングルピングル"
-  },
-  {
-    "id": 10,
-    "word": "벌벌",
-    "choices": ["ぶるぶる", "ぐつぐつ", "きらきら", "さらさら"],
-    "answer": 0,
-    "example_ko": "추워서 벌벌 떨었어요.",
-    "example_ja": "寒くてぶるぶる震えました。",
-    "pronunciation": "ボルボル"
-  }
-]
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+const questionText = document.getElementById("question");
+const choicesArea = document.getElementById("choices");
+const resultText = document.getElementById("result");
+const nextButton = document.getElementById("nextButton");
+const scoreText = document.getElementById("score");
+
+
+// questions.jsonを読み込む
+fetch("questions.json")
+    .then(response => response.json())
+    .then(data => {
+        questions = shuffle(data).slice(0, 10);
+        showQuestion();
+    })
+    .catch(error => {
+        questionText.textContent = "問題データを読み込めませんでした";
+        console.log(error);
+    });
+
+
+// 問題表示
+function showQuestion() {
+
+    answered = false;
+    resultText.textContent = "";
+    nextButton.style.display = "none";
+
+    let q = questions[currentQuestion];
+
+    questionText.textContent =
+        `${currentQuestion + 1}問目：${q.question}`;
+
+    choicesArea.innerHTML = "";
+
+    q.choices.forEach(choice => {
+
+        let button = document.createElement("button");
+        button.textContent = choice;
+        button.className = "choice";
+
+        button.onclick = function () {
+
+            if (answered) return;
+
+            answered = true;
+
+            if (choice === q.answer) {
+
+                score++;
+                resultText.textContent = "⭕ 正解！";
+                resultText.className = "correct";
+
+            } else {
+
+                resultText.textContent =
+                    `❌ 正解は「${q.answer}」`;
+                resultText.className = "incorrect";
+
+            }
+
+            nextButton.style.display = "inline-block";
+            scoreText.textContent =
+                `現在の得点：${score} / ${questions.length}`;
+        };
+
+        choicesArea.appendChild(button);
+
+    });
+}
+
+
+// 次の問題
+nextButton.onclick = function(){
+
+    currentQuestion++;
+
+    if(currentQuestion < questions.length){
+
+        showQuestion();
+
+    }else{
+
+        questionText.textContent =
+            "🎉 終了しました！";
+
+        choicesArea.innerHTML = "";
+
+        resultText.textContent =
+            `あなたの得点は ${score} / ${questions.length} 点です！`;
+
+        nextButton.style.display = "none";
+    }
+
+};
+
+
+// 配列をランダム化
+function shuffle(array){
+
+    return array.sort(
+        () => Math.random() - 0.5
+    );
+
+}
