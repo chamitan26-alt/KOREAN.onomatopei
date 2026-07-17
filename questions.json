@@ -1,109 +1,102 @@
-let questions = [];
-let currentQuestion = 0;
-let score = 0;
-let answered = false;
-
-const questionText = document.getElementById("question");
-const choicesArea = document.getElementById("choices");
-const resultText = document.getElementById("result");
-const nextButton = document.getElementById("nextButton");
-const scoreText = document.getElementById("score");
-
-
-// questions.jsonを読み込む
-fetch("questions.json")
-    .then(response => response.json())
-    .then(data => {
-        questions = shuffle(data).slice(0, 10);
-        showQuestion();
-    })
-    .catch(error => {
-        questionText.textContent = "問題データを読み込めませんでした";
-        console.log(error);
-    });
-
-
-// 問題表示
-function showQuestion() {
-
-    answered = false;
-    resultText.textContent = "";
-    nextButton.style.display = "none";
-
-    let q = questions[currentQuestion];
-
-    questionText.textContent =
-        `${currentQuestion + 1}問目：${q.question}`;
-
-    choicesArea.innerHTML = "";
-
-    q.choices.forEach(choice => {
-
-        let button = document.createElement("button");
-        button.textContent = choice;
-        button.className = "choice";
-
-        button.onclick = function () {
-
-            if (answered) return;
-
-            answered = true;
-
-            if (choice === q.answer) {
-
-                score++;
-                resultText.textContent = "⭕ 正解！";
-                resultText.className = "correct";
-
-            } else {
-
-                resultText.textContent =
-                    `❌ 正解は「${q.answer}」`;
-                resultText.className = "incorrect";
-
-            }
-
-            nextButton.style.display = "inline-block";
-            scoreText.textContent =
-                `現在の得点：${score} / ${questions.length}`;
-        };
-
-        choicesArea.appendChild(button);
-
-    });
-}
-
-
-// 次の問題
-nextButton.onclick = function(){
-
-    currentQuestion++;
-
-    if(currentQuestion < questions.length){
-
-        showQuestion();
-
-    }else{
-
-        questionText.textContent =
-            "🎉 終了しました！";
-
-        choicesArea.innerHTML = "";
-
-        resultText.textContent =
-            `あなたの得点は ${score} / ${questions.length} 点です！`;
-
-        nextButton.style.display = "none";
-    }
-
-};
-
-
-// 配列をランダム化
-function shuffle(array){
-
-    return array.sort(
-        () => Math.random() - 0.5
-    );
-
-}
+[
+  {
+    "question": "반짝반짝 の意味は？",
+    "choices": [
+      "キラキラ",
+      "ぐっすり",
+      "ドキドキ",
+      "びっくり"
+    ],
+    "answer": "キラキラ"
+  },
+  {
+    "question": "두근두근 の意味は？",
+    "choices": [
+      "ワクワク・ドキドキ",
+      "静かに",
+      "ペコペコ",
+      "ゆっくり"
+    ],
+    "answer": "ワクワク・ドキドキ"
+  },
+  {
+    "question": "쿨쿨 の意味は？",
+    "choices": [
+      "ぐっすり眠る様子",
+      "走る様子",
+      "笑う様子",
+      "怒る様子"
+    ],
+    "answer": "ぐっすり眠る様子"
+  },
+  {
+    "question": "엉엉 の意味は？",
+    "choices": [
+      "わんわん泣く様子",
+      "笑う様子",
+      "踊る様子",
+      "食べる様子"
+    ],
+    "answer": "わんわん泣く様子"
+  },
+  {
+    "question": "살랑살랑 の意味は？",
+    "choices": [
+      "そよそよ揺れる様子",
+      "激しく動く様子",
+      "大きな音",
+      "急ぐ様子"
+    ],
+    "answer": "そよそよ揺れる様子"
+  },
+  {
+    "question": "깜짝깜짝 の意味は？",
+    "choices": [
+      "びっくりする様子",
+      "眠る様子",
+      "歩く様子",
+      "笑う様子"
+    ],
+    "answer": "びっくりする様子"
+  },
+  {
+    "question": "반들반들 の意味は？",
+    "choices": [
+      "つるつる・ピカピカ",
+      "ガタガタ",
+      "ふわふわ",
+      "ベタベタ"
+    ],
+    "answer": "つるつる・ピカピカ"
+  },
+  {
+    "question": "하하 の意味は？",
+    "choices": [
+      "ハハと笑う様子",
+      "泣く様子",
+      "怒る様子",
+      "震える様子"
+    ],
+    "answer": "ハハと笑う様子"
+  },
+  {
+    "question": "푹푹 の意味は？",
+    "choices": [
+      "深く・ぐっと",
+      "軽く",
+      "静かに",
+      "速く"
+    ],
+    "answer": "深く・ぐっと"
+  },
+  {
+    "question": "졸졸 の意味は？",
+    "choices": [
+      "水などがチョロチョロ流れる様子",
+      "大きな音がする様子",
+      "怒る様子",
+      "笑う様子"
+    ],
+    "answer": "水などがチョロチョロ流れる様子"
+  }
+]
