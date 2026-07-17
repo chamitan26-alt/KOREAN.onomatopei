@@ -3,24 +3,27 @@ let currentQuestion = 0;
 let score = 0;
 let answered = false;
 
+
+const startButton = document.getElementById("startButton");
+const startArea = document.getElementById("startArea");
+const quizArea = document.getElementById("quizArea");
+
 const questionText = document.getElementById("question");
 const choicesBox = document.getElementById("choices");
 const resultText = document.getElementById("result");
-const nextButton = document.getElementById("next");
-const startButton = document.getElementById("start");
+const nextArea = document.getElementById("nextArea");
+const scoreText = document.getElementById("score");
 
 
-// スタート
-startButton.addEventListener("click", startQuiz);
 
+// 開始ボタン
+startButton.onclick = function(){
 
-function startQuiz(){
+    startArea.style.display = "none";
+    quizArea.style.display = "block";
 
     score = 0;
     currentQuestion = 0;
-
-    startButton.style.display = "none";
-    resultText.innerHTML = "";
 
     fetch("questions.json")
     .then(response => response.json())
@@ -31,16 +34,17 @@ function startQuiz(){
         showQuestion();
 
     })
-    .catch(error => {
+    .catch(error=>{
 
         questionText.innerHTML =
-        "データを読み込めませんでした";
+        "問題データを読み込めませんでした";
 
         console.log(error);
 
     });
 
-}
+};
+
 
 
 // 問題表示
@@ -48,76 +52,75 @@ function showQuestion(){
 
     answered = false;
 
-    nextButton.style.display = "none";
+    nextArea.innerHTML = "";
 
     let q = questions[currentQuestion];
 
 
     questionText.innerHTML =
-    (currentQuestion + 1) + "問目<br>" + q.question;
+    (currentQuestion + 1) +
+    "問目<br>" +
+    q.question;
 
 
-    choicesBox.innerHTML = "";
+    choicesBox.innerHTML="";
 
 
     let choices = shuffle([...q.choices]);
 
 
-    choices.forEach(choice => {
+    choices.forEach(choice=>{
 
-        let button = document.createElement("button");
+
+        let button =
+        document.createElement("button");
+
 
         button.innerHTML = choice;
 
-        button.className = "choice";
 
+        button.onclick=function(){
 
-        button.onclick = function(){
+            if(answered)return;
 
-            if(answered) return;
+            answered=true;
 
-            answered = true;
-
-            checkAnswer(choice);
+            checkAnswer(choice,button);
 
         };
 
 
         choicesBox.appendChild(button);
 
+
     });
+
 
 }
 
 
 
 // 答え確認
-function checkAnswer(choice){
+function checkAnswer(choice,button){
+
 
     let q = questions[currentQuestion];
 
 
     let buttons =
-    document.querySelectorAll(".choice");
+    choicesBox.querySelectorAll("button");
 
 
     buttons.forEach(btn=>{
+
+        btn.disabled=true;
+
 
         if(btn.innerHTML === q.answer){
 
             btn.style.background="#90ee90";
 
         }
-
-
-        if(btn.innerHTML === choice &&
-           choice !== q.answer){
-
-            btn.style.background="#ff9999";
-
-        }
-
-        btn.disabled=true;
 
     });
 
@@ -132,54 +135,63 @@ function checkAnswer(choice){
     }else{
 
         resultText.innerHTML=
-        "不正解… 正解は「"+
+        "残念… 正解は「"+
         q.answer+"」";
+
+        button.style.background="#ff9999";
 
     }
 
 
-    nextButton.style.display="block";
+    scoreText.innerHTML =
+    "現在の得点：" +
+    score +
+    " / 10";
+
+
+    let next =
+    document.createElement("button");
+
+    next.innerHTML="次の問題へ";
+
+
+    next.onclick=function(){
+
+        currentQuestion++;
+
+
+        if(currentQuestion < questions.length){
+
+            showQuestion();
+
+        }else{
+
+
+            questionText.innerHTML=
+            "終了！";
+
+
+            choicesBox.innerHTML="";
+
+
+            resultText.innerHTML=
+            "あなたの得点は "+
+            score+
+            " / 10 点でした✨";
+
+
+            nextArea.innerHTML="";
+
+
+        }
+
+    };
+
+
+    nextArea.appendChild(next);
 
 
 }
-
-
-
-// 次へ
-nextButton.addEventListener("click",()=>{
-
-
-    currentQuestion++;
-
-
-    if(currentQuestion < questions.length){
-
-        showQuestion();
-
-    }else{
-
-
-        questionText.innerHTML=
-        "終了！";
-
-
-        choicesBox.innerHTML="";
-
-
-        resultText.innerHTML=
-        score+" / 10 問 正解！";
-
-
-        nextButton.style.display="none";
-
-        startButton.style.display="block";
-
-        startButton.innerHTML="もう一度挑戦";
-
-    }
-
-
-});
 
 
 
