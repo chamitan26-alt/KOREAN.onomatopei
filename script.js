@@ -86,9 +86,6 @@ utterance.lang = "ko-KR";
 
 speechSynthesis.speak(utterance);
 
-    };
-
-
     questionText.appendChild(
         document.createElement("br")
     );
