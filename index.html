@@ -4,28 +4,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>シムさんと楽しく学ぶ韓国語</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🇰🇷 シムさんと楽しく学ぶ韓国語</h1>
+    <header>
+        <h1>🇰🇷 シムさんと楽しく学ぶ韓国語</h1>
+        <p class="subtitle">韓国語オノマトペクイズ</p>
+    </header>
 
-<h3 id="questionNumber">第1問 / 10</h3>
+    <section id="start-screen">
 
-<h2 id="word">読み込み中...</h2>
+        <div class="card">
 
-<p>意味は？</p>
+            <h2>スタート</h2>
 
-<div id="choices"></div>
+            <label class="select-title">
+                出題数
+            </label>
 
-<div id="result"></div>
+            <select id="question-count">
+                <option value="10" selected>10問</option>
+                <option value="20">20問</option>
+                <option value="30">30問</option>
+                <option value="50">50問</option>
+                <option value="100">100問</option>
+                <option value="300">全300問</option>
+            </select>
 
-<button id="nextBtn" onclick="nextQuestion()" style="display:none;">
-次の問題
-</button>
+            <button id="start-btn">
+                スタート
+            </button>
+
+        </div>
+
+    </section>
+
+    <section id="quiz-screen" class="hidden">
+
+        <div class="status">
+
+            <div id="progress">
+                1 / 10
+            </div>
+
+            <div id="score">
+                正解 0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <p class="question-label">
+                日本語はこちら
+            </p>
+
+            <h2 id="question">
+                問題
+            </h2>
+
+            <div id="choices" class="choices">
+
+            </div>
+
+            <p id="message"></p>
+
+            <button id="next-btn" class="hidden">
+                次へ →
+            </button>
+
+        </div>
+
+    </section>
+
+    <section id="result-screen" class="hidden">
+
+        <div class="card">
+
+            <h2>結果</h2>
+
+            <p id="result-text"></p>
+
+            <button id="restart-btn">
+                もう一度挑戦
+            </button>
+
+        </div>
+
+    </section>
 
 </div>
 
