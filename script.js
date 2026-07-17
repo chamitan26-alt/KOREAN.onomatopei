@@ -1,314 +1,150 @@
 let questions = [];
-let quizQuestions = [];
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
 
 
-// 問題読み込み
+// 問題データ読み込み
 fetch("questions.json")
-.then(response => response.json())
-.then(data => {
+    .then(response => response.json())
+    .then(data => {
 
-    questions = data;
+        questions = data;
 
-});
+        document.getElementById("startButton").addEventListener("click", startQuiz);
 
-
-
-// スタートボタン
-document.getElementById("startButton")
-.onclick = function(){
-
-
-    document.getElementById("startArea")
-    .style.display = "none";
+    })
+    .catch(error => {
+        console.log("問題読み込みエラー", error);
+    });
 
 
-    document.getElementById("quizArea")
-    .style.display = "block";
-
-
-    startQuiz();
-
-};
-
-
-
-// クイズ開始
+// スタート
 function startQuiz(){
 
-    currentQuestion = 0;
+    document.getElementById("startButton").style.display = "none";
 
     score = 0;
+    currentQuestion = 0;
 
+    document.getElementById("score").innerHTML =
+    "スコア：0点";
 
-    updateScore();
-
-
-    quizQuestions = [...questions]
-    .sort(() => Math.random() - 0.5)
-    .slice(0,10);
-
+    shuffleQuestions();
 
     showQuestion();
 
 }
 
 
+// 問題をシャッフル
+function shuffleQuestions(){
 
-// 得点表示
-function updateScore(){
-
-    document.getElementById("score")
-    .textContent =
-    "現在の得点：" + score + " / 10";
+    questions.sort(() => Math.random() - 0.5);
 
 }
-
 
 
 // 問題表示
 function showQuestion(){
 
-
     answered = false;
 
-
-    const q = quizQuestions[currentQuestion];
-
+    let q = questions[currentQuestion];
 
 
-    document.getElementById("question")
-    .innerHTML =
-
-    `
-    第 ${currentQuestion + 1} 問 / 10問
-    <br><br>
-    ${q.question}
-    `;
+    document.getElementById("question").innerHTML =
+    (currentQuestion + 1) + "問目<br>" + q.question;
 
 
-
-    document.getElementById("choices")
-    .innerHTML = "";
+    let choicesHTML = "";
 
 
-    document.getElementById("result")
-    .innerHTML = "";
+    q.choices.forEach(choice => {
 
-
-    document.getElementById("nextArea")
-    .innerHTML = "";
-
-
-
-    const choices = [...q.choices]
-    .sort(() => Math.random() - 0.5);
-
-
-
-    choices.forEach(choice => {
-
-
-        const button =
-        document.createElement("button");
-
-
-        button.textContent = choice;
-
-
-
-        button.onclick = function(){
-
-
-            if(answered) return;
-
-
-            answered = true;
-
-
-            checkAnswer(choice);
-
-
-        };
-
-
-        document.getElementById("choices")
-        .appendChild(button);
-
+        choicesHTML +=
+        `<button onclick="checkAnswer('${choice}')">${choice}</button>`;
 
     });
 
 
-}
+    document.getElementById("choices").innerHTML = choicesHTML;
 
+
+    document.getElementById("nextArea").style.display = "none";
+
+}
 
 
 // 答え確認
 function checkAnswer(choice){
 
+    if(answered) return;
 
-    const q = quizQuestions[currentQuestion];
+    answered = true;
 
+
+    let q = questions[currentQuestion];
 
 
     if(choice === q.answer){
 
-
         score++;
 
-        updateScore();
-
-
-        document.getElementById("result")
-        .innerHTML =
-
-        `
-        <h3>⭕ 正解！</h3>
-
-        <p>発音：${q.pronunciation}</p>
-
-        <p>意味：${q.meaning}</p>
-
-        <p>例文：<br>${q.example}</p>
-
-        <p>日本語：${q.translation}</p>
-        `;
-
+        alert("正解✨");
 
     }else{
 
-
-        document.getElementById("result")
-        .innerHTML =
-
-        `
-        <h3>❌ 不正解</h3>
-
-        <p>正解：${q.answer}</p>
-
-        <p>発音：${q.pronunciation}</p>
-
-        <p>意味：${q.meaning}</p>
-
-        <p>例文：<br>${q.example}</p>
-
-        <p>日本語：${q.translation}</p>
-        `;
-
+        alert("正解は「" + q.answer + "」です");
 
     }
 
 
-    createNextButton();
+    document.getElementById("score").innerHTML =
+    "スコア：" + score + " / 10";
 
+
+    document.getElementById("nextArea").style.display = "block";
 
 }
 
 
+// 次へ
+function nextQuestion(){
 
-// 次へボタン
-function createNextButton(){
-
-
-    const button =
-    document.createElement("button");
+    currentQuestion++;
 
 
+    if(currentQuestion >= 10){
 
-    if(currentQuestion < quizQuestions.length - 1){
-
-
-        button.textContent =
-        "次の問題へ";
-
-
-        button.onclick = function(){
-
-            currentQuestion++;
-
-            showQuestion();
-
-        };
-
+        showResult();
 
     }else{
 
-
-        button.textContent =
-        "結果を見る";
-
-
-        button.onclick = function(){
-
-            showScore();
-
-        };
-
+        showQuestion();
 
     }
 
-
-
-    document.getElementById("nextArea")
-    .appendChild(button);
-
-
 }
-
 
 
 // 結果
-function showScore(){
+function showResult(){
+
+    document.getElementById("question").innerHTML =
+    "🎉終了！";
 
 
-    document.getElementById("question")
-    .innerHTML =
-    "🎉 結果発表 🎉";
+    document.getElementById("choices").innerHTML =
+    "";
 
 
-    document.getElementById("score")
-    .textContent =
-    "最終結果：" + score + " / 10";
+    document.getElementById("nextArea").style.display =
+    "none";
 
 
-    document.getElementById("result")
-    .innerHTML =
-
-    `
-    <h2>
-    ${score}問正解！
-    </h2>
-    `;
-
-
-
-    document.getElementById("nextArea")
-    .innerHTML = "";
-
-
-
-    const button =
-    document.createElement("button");
-
-
-
-    button.textContent =
-    "もう一度挑戦する";
-
-
-
-    button.onclick = function(){
-
-        startQuiz();
-
-    };
-
-
-
-    document.getElementById("nextArea")
-    .appendChild(button);
-
+    document.getElementById("result").innerHTML =
+    "<h3>結果</h3>" +
+    "<p>10問中 " + score + "問正解！</p>";
 
 }
