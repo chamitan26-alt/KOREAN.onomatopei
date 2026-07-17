@@ -1,5 +1,5 @@
 body {
-    font-family: "Arial", "Noto Sans JP", sans-serif;
+    font-family: Arial, "Noto Sans JP", sans-serif;
     background: #fff8f5;
     margin: 0;
     padding: 20px;
@@ -7,25 +7,33 @@ body {
     color: #333;
 }
 
+
 .container {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 30px auto;
     background: white;
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+
 h1 {
     color: #d65a7a;
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 26px;
 }
 
+
 .subtitle {
-    color: #666;
-    margin-bottom: 20px;
+    color: #777;
 }
+
+
+.score {
+    margin: 15px;
+    font-size: 18px;
+}
+
 
 #question {
     font-size: 22px;
@@ -33,44 +41,43 @@ h1 {
     margin: 25px 0;
 }
 
+
 .choice {
-    display: block;
     width: 100%;
     padding: 14px;
-    margin: 10px 0;
+    margin: 8px 0;
     border: none;
-    border-radius: 12px;
+    border-radius: 15px;
     background: #f3b6c8;
     color: white;
     font-size: 17px;
     cursor: pointer;
-    transition: 0.2s;
 }
+
 
 .choice:hover {
     background: #e88aa8;
 }
 
-.choice:active {
-    transform: scale(0.98);
-}
 
 #result {
-    margin-top: 20px;
+    margin: 20px;
     font-size: 20px;
     font-weight: bold;
 }
 
+
 .correct {
-    color: #2e8b57;
+    color: green;
 }
+
 
 .incorrect {
-    color: #d9534f;
+    color: red;
 }
 
+
 #nextButton {
-    margin-top: 20px;
     padding: 12px 30px;
     border: none;
     border-radius: 20px;
@@ -78,22 +85,10 @@ h1 {
     color: white;
     font-size: 16px;
     cursor: pointer;
+    display: none;
 }
+
 
 #nextButton:hover {
     background: #559bd8;
-}
-
-.score {
-    font-size: 18px;
-    margin-top: 15px;
-    color: #555;
-}
-
-.meaning {
-    margin-top: 15px;
-    padding: 12px;
-    background: #fff0f5;
-    border-radius: 10px;
-    font-size: 16px;
 }
