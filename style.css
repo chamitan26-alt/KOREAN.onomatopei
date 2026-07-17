@@ -1,17 +1,24 @@
 body {
-    font-family: 
+
+    font-family:
     "Hiragino Kaku Gothic ProN",
     "Yu Gothic",
     sans-serif;
 
     background: #fff7f2;
+
     margin: 0;
+
     padding: 20px;
+
 }
 
 
+
 .container {
+
     max-width: 500px;
+
     margin: 0 auto;
 
     background: white;
@@ -20,11 +27,15 @@ body {
 
     border-radius: 25px;
 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow:
+    0 8px 20px rgba(0,0,0,0.08);
+
 }
 
 
+
 h1 {
+
     text-align: center;
 
     color: #d85c7a;
@@ -32,7 +43,9 @@ h1 {
     font-size: 28px;
 
     margin-bottom: 10px;
+
 }
+
 
 
 .subtitle {
@@ -59,6 +72,8 @@ h1 {
 
     font-weight: bold;
 
+    font-size: 18px;
+
     padding: 12px;
 
     border-radius: 15px;
@@ -73,15 +88,15 @@ h1 {
 
     background: #fffaf0;
 
-    padding: 20px;
+    padding: 22px;
 
     border-radius: 18px;
 
-    font-size: 20px;
+    font-size: 21px;
 
     font-weight: bold;
 
-    line-height: 1.6;
+    line-height: 1.7;
 
     text-align: center;
 
@@ -91,43 +106,94 @@ h1 {
 
 
 
+/* 選択肢ボタン */
+
 #choices button {
+
 
     width: 90%;
 
-    min-height: 55px;
 
-    margin: 10px auto;
+    min-height: 60px;
+
+
+    margin: 12px auto;
+
 
     display: block;
 
+
     border: none;
 
-    border-radius: 15px;
 
-    background: #b7a6d8;
+    border-radius: 18px;
+
+
+    background: #8fcfc9;
+
 
     color: white;
 
-    font-size: 18px;
+
+    font-size: 19px;
+
 
     font-weight: bold;
 
-}
-
-
-
-#choices button:hover {
-
-    opacity: 0.8;
 
 }
 
 
 
-#choices button:active {
+/* 次の問題ボタン */
 
-    transform: scale(0.97);
+#nextArea button {
+
+
+    width: 95%;
+
+
+    height: 75px;
+
+
+    margin: 35px auto 20px;
+
+
+    display: block;
+
+
+    border: none;
+
+
+    border-radius: 22px;
+
+
+    background: #e86a8d;
+
+
+    color: white;
+
+
+    font-size: 24px;
+
+
+    font-weight: bold;
+
+
+    box-shadow:
+    0 5px 12px rgba(0,0,0,0.15);
+
+
+}
+
+
+
+#choices button:active,
+#nextArea button:active {
+
+
+    transform: scale(0.96);
+
 
 }
 
@@ -135,17 +201,24 @@ h1 {
 
 #result {
 
+
     margin-top: 25px;
 
-    padding: 20px;
 
-    background: #f8f8f8;
+    padding: 22px;
 
-    border-radius: 18px;
 
-    line-height: 1.8;
+    background: #fafafa;
 
-    font-size: 16px;
+
+    border-radius: 20px;
+
+
+    line-height: 1.9;
+
+
+    font-size: 17px;
+
 
 }
 
@@ -153,11 +226,25 @@ h1 {
 
 #result h3 {
 
+
     text-align: center;
+
 
     color: #d85c7a;
 
-    font-size: 24px;
+
+    font-size: 26px;
+
+
+}
+
+
+
+#result p {
+
+
+    margin: 15px 0;
+
 
 }
 
@@ -165,7 +252,9 @@ h1 {
 
 button {
 
+
     cursor: pointer;
+
 
 }
 
@@ -173,42 +262,14 @@ button {
 
 hr {
 
+
     border: none;
+
 
     border-top: 1px solid #ddd;
 
+
     margin: 15px 0;
 
-}
-#nextArea button {
-
-    width: 95%;
-
-    min-height: 70px;
-
-    margin: 30px auto 15px;
-
-    display: block;
-
-    border: none;
-
-    border-radius: 20px;
-
-    background: #e86a8d;
-
-    color: white;
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-
-}
-
-
-#nextArea button:active {
-
-    transform: scale(0.96);
 
 }
