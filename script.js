@@ -8,7 +8,6 @@ let answered = false;
 let currentKoreanWord = "";
 
 
-
 const startButton = document.getElementById("startButton");
 const startArea = document.getElementById("startArea");
 const quizArea = document.getElementById("quizArea");
@@ -20,31 +19,24 @@ const explanationText = document.getElementById("explanation");
 
 const nextButton = document.getElementById("nextButton");
 const speakButton = document.getElementById("speakButton");
-
-
+const scoreText = document.getElementById("score");
 
 
 
 // データ読み込み
 
 fetch("questions.json")
-
 .then(response => response.json())
-
 .then(data => {
 
     questions = data;
 
 })
-
 .catch(error => {
 
-    console.log(error);
+    console.log("読み込みエラー", error);
 
 });
-
-
-
 
 
 
@@ -53,6 +45,10 @@ fetch("questions.json")
 
 startButton.onclick = function(){
 
+    startArea.style.display = "none";
+
+    quizArea.style.display = "block";
+
     startQuiz();
 
 };
@@ -60,18 +56,13 @@ startButton.onclick = function(){
 
 
 
-
-
-
-// 10問選ぶ
+// 10問作成
 
 function startQuiz(){
-
 
     quizQuestions = [...questions]
     .sort(() => Math.random() - 0.5)
     .slice(0,10);
-
 
 
     currentQuestion = 0;
@@ -79,19 +70,13 @@ function startQuiz(){
     score = 0;
 
 
-    startArea.style.display = "none";
-
-    quizArea.style.display = "block";
+    scoreText.innerHTML =
+    "現在の得点：0 / 10";
 
 
     showQuestion();
 
-
 }
-
-
-
-
 
 
 
@@ -100,14 +85,12 @@ function startQuiz(){
 
 function showQuestion(){
 
-
     answered = false;
 
 
     resultText.innerHTML = "";
 
     explanationText.innerHTML = "";
-
 
     nextButton.style.display = "none";
 
@@ -118,10 +101,9 @@ function showQuestion(){
 
 
     questionText.innerHTML =
-
     (currentQuestion + 1)
-    +"問目 / 10問<br><br>"
-    +q.question;
+    + "問目 / 10問<br><br>"
+    + q.question;
 
 
 
@@ -137,11 +119,11 @@ function showQuestion(){
     let choices = [...q.choices];
 
 
-    choices.sort(() => Math.random()-0.5);
+    choices.sort(() => Math.random() - 0.5);
 
 
 
-    choices.forEach(choice =>{
+    choices.forEach(choice => {
 
 
         let button = document.createElement("button");
@@ -162,31 +144,22 @@ function showQuestion(){
 
     });
 
-
 }
 
 
 
-
-
-
-
-
-// 発音ボタン
+// 発音
 
 speakButton.onclick = function(){
 
 
-    let speech =
+    const speech =
     new SpeechSynthesisUtterance();
-
 
 
     speech.text = currentKoreanWord;
 
-
     speech.lang = "ko-KR";
-
 
     speech.rate = 0.8;
 
@@ -199,19 +172,15 @@ speakButton.onclick = function(){
 
 
 
-
-
-
-
 // 答え確認
 
 function checkAnswer(choice,q){
 
 
-    if(answered)return;
+    if(answered) return;
 
 
-    answered=true;
+    answered = true;
 
 
 
@@ -219,6 +188,10 @@ function checkAnswer(choice,q){
 
 
         score++;
+
+
+        scoreText.innerHTML =
+        "現在の得点：" + score + " / 10";
 
 
         resultText.innerHTML =
@@ -229,9 +202,7 @@ function checkAnswer(choice,q){
 
 
         resultText.innerHTML =
-
-        "❌ 不正解<br>正解："
-        +q.answer;
+        "❌ 不正解<br>正解：" + q.answer;
 
 
     }
@@ -239,13 +210,12 @@ function checkAnswer(choice,q){
 
 
     explanationText.innerHTML =
-
-    "📖 解説<br>"
-    +(q.explanation || "解説なし");
-
+    "📖 解説<br>" +
+    (q.explanation || "解説なし");
 
 
-    nextButton.style.display="block";
+
+    nextButton.style.display = "block";
 
 
 }
@@ -253,13 +223,9 @@ function checkAnswer(choice,q){
 
 
 
-
-
-
-
 // 次へ
 
-nextButton.onclick=function(){
+nextButton.onclick = function(){
 
 
     currentQuestion++;
@@ -279,16 +245,16 @@ nextButton.onclick=function(){
 
         "<h2>終了！</h2>" +
 
-        "<p>得点："
-        +score+
+        "<p>得点：" +
+        score +
         " / 10</p>" +
 
         "<button onclick='location.reload()'>"
-        +"もう一度挑戦する"
-        +"</button>";
-
+        +
+        "もう一度挑戦する"
+        +
+        "</button>";
 
     }
-
 
 };
