@@ -7,89 +7,114 @@ let answered = false;
 
 // 問題読み込み
 fetch("questions.json")
-  .then(response => response.json())
-  .then(data => {
+.then(response => response.json())
+.then(data => {
+
     questions = data;
     startQuiz();
-  });
+
+});
+
 
 
 // クイズ開始
-function startQuiz() {
+function startQuiz(){
 
-  currentQuestion = 0;
-  score = 0;
+    currentQuestion = 0;
+    score = 0;
 
-  updateScore();
+    updateScore();
 
-  quizQuestions = [...questions]
+
+    quizQuestions = [...questions]
     .sort(() => Math.random() - 0.5)
-    .slice(0, 10);
+    .slice(0,10);
 
-  showQuestion();
+
+    showQuestion();
+
 }
 
 
-// 得点表示更新
+
+// 得点表示
 function updateScore(){
 
-  document.getElementById("score").textContent =
+    document.getElementById("score").textContent =
     "現在の得点：" + score + " / 10";
 
 }
 
 
+
 // 問題表示
 function showQuestion(){
 
-  answered = false;
-
-  const q = quizQuestions[currentQuestion];
+    answered = false;
 
 
-  document.getElementById("question").innerHTML =
+    const q = quizQuestions[currentQuestion];
+
+
+    document.getElementById("question").innerHTML =
+
     `
-    第 ${currentQuestion + 1} 問 / 10問<br><br>
+    第 ${currentQuestion + 1} 問 / 10問
+    <br><br>
     ${q.question}
     `;
 
 
-  const choicesArea =
+
+    const choicesArea =
     document.getElementById("choices");
 
-  choicesArea.innerHTML = "";
+
+    choicesArea.innerHTML = "";
 
 
-  const choices = [...q.choices]
+    document.getElementById("result").innerHTML = "";
+
+
+    document.getElementById("nextArea").innerHTML = "";
+
+
+
+    const choices = [...q.choices]
     .sort(() => Math.random() - 0.5);
 
 
-  choices.forEach(choice => {
 
-    const button =
-      document.createElement("button");
+    choices.forEach(choice => {
 
 
-    button.textContent = choice;
+        const button =
+        document.createElement("button");
 
 
-    button.onclick = function(){
-
-      if(answered) return;
-
-      answered = true;
-
-      checkAnswer(choice);
-
-    };
+        button.textContent = choice;
 
 
-    choicesArea.appendChild(button);
-
-  });
+        button.onclick = function(){
 
 
-  document.getElementById("result").innerHTML = "";
+            if(answered) return;
+
+
+            answered = true;
+
+
+            checkAnswer(choice);
+
+
+        };
+
+
+        choicesArea.appendChild(button);
+
+
+    });
+
 
 }
 
@@ -98,111 +123,125 @@ function showQuestion(){
 // 答え確認
 function checkAnswer(choice){
 
-  const q = quizQuestions[currentQuestion];
+
+    const q = quizQuestions[currentQuestion];
 
 
-  if(choice === q.answer){
 
-    score++;
-
-    updateScore();
+    if(choice === q.answer){
 
 
-    document.getElementById("result").innerHTML =
-    `
-    <h3>⭕ 正解！</h3>
+        score++;
 
-    <p>発音：${q.pronunciation}</p>
-
-    <p>意味：${q.meaning}</p>
-
-    <p>
-    例文：<br>
-    ${q.example}
-    </p>
-
-    <p>
-    日本語：${q.translation}
-    </p>
-    `;
+        updateScore();
 
 
-  }else{
+        document.getElementById("result").innerHTML =
+
+        `
+        <h3>⭕ 正解！</h3>
+
+        <p>発音：${q.pronunciation}</p>
+
+        <p>意味：${q.meaning}</p>
+
+        <p>
+        例文：<br>
+        ${q.example}
+        </p>
+
+        <p>
+        日本語：${q.translation}
+        </p>
+        `;
 
 
-    document.getElementById("result").innerHTML =
-    `
-    <h3>❌ 不正解</h3>
-
-    <p>正解：${q.answer}</p>
-
-    <p>発音：${q.pronunciation}</p>
-
-    <p>意味：${q.meaning}</p>
-
-    <p>
-    例文：<br>
-    ${q.example}
-    </p>
-
-    <p>
-    日本語：${q.translation}
-    </p>
-    `;
-
-  }
+    }else{
 
 
-  showNextButton();
+        document.getElementById("result").innerHTML =
+
+        `
+        <h3>❌ 不正解</h3>
+
+        <p>正解：${q.answer}</p>
+
+        <p>発音：${q.pronunciation}</p>
+
+        <p>意味：${q.meaning}</p>
+
+        <p>
+        例文：<br>
+        ${q.example}
+        </p>
+
+        <p>
+        日本語：${q.translation}
+        </p>
+        `;
+
+
+    }
+
+
+
+    createNextButton();
+
 
 }
 
 
 
-// 次へボタン
-function showNextButton(){
+// 次へボタン作成
+function createNextButton(){
 
 
-  const button =
+    const button =
     document.createElement("button");
 
 
-  if(currentQuestion < quizQuestions.length - 1){
+    if(currentQuestion < quizQuestions.length - 1){
 
 
-    button.textContent =
-      "次の問題へ";
+        button.textContent =
+        "次の問題へ";
 
 
-    button.onclick = function(){
-
-      currentQuestion++;
-
-      showQuestion();
-
-    };
+        button.onclick = function(){
 
 
-  }else{
+            currentQuestion++;
+
+            showQuestion();
 
 
-    button.textContent =
-      "結果を見る";
+        };
 
 
-    button.onclick = function(){
-
-      showScore();
-
-    };
-
-  }
+    }else{
 
 
-  document.getElementById("choices").innerHTML = "";
+        button.textContent =
+        "結果を見る";
 
-  document.getElementById("choices")
+
+        button.onclick = function(){
+
+
+            showScore();
+
+
+        };
+
+
+    }
+
+
+
+    document.getElementById("nextArea")
     .appendChild(button);
+
+
 
 }
 
@@ -212,18 +251,20 @@ function showNextButton(){
 function showScore(){
 
 
-  document.getElementById("question")
-    .innerHTML =
+    document.getElementById("question").innerHTML =
+
     "🎉 結果発表 🎉";
 
 
-  document.getElementById("score")
-    .textContent =
+
+    document.getElementById("score").textContent =
+
     "最終結果：" + score + " / 10";
 
 
-  document.getElementById("result")
-    .innerHTML =
+
+    document.getElementById("result").innerHTML =
+
     `
     <h2>
     ${score}問正解！
@@ -231,24 +272,30 @@ function showScore(){
     `;
 
 
-  const button =
+
+    const button =
     document.createElement("button");
 
 
-  button.textContent =
+
+    button.textContent =
     "もう一度挑戦する";
 
 
-  button.onclick = function(){
 
-    startQuiz();
+    button.onclick = function(){
 
-  };
+        startQuiz();
+
+    };
 
 
-  document.getElementById("choices").innerHTML = "";
 
-  document.getElementById("choices")
+    document.getElementById("nextArea").innerHTML = "";
+
+    document.getElementById("nextArea")
     .appendChild(button);
+
+
 
 }
