@@ -312,3 +312,8 @@ hr {
     transform: scale(0.96);
 
 }
+.choiceButton {
+    position: relative;
+    z-index: 9999;
+    pointer-events: auto;
+}
