@@ -77,12 +77,14 @@ function showQuestion(){
 
     soundButton.onclick=function(){
 
-        let utterance =
-        new SpeechSynthesisUtterance(q.question.split(" ")[0]);
+        let koreanWord = q.question.match(/[가-힣]+/)[0];
 
-        utterance.lang="ko-KR";
+let utterance =
+new SpeechSynthesisUtterance(koreanWord);
 
-        speechSynthesis.speak(utterance);
+utterance.lang = "ko-KR";
+
+speechSynthesis.speak(utterance);
 
     };
 
