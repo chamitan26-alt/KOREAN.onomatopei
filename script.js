@@ -45,3 +45,54 @@ function showQuestion() {
   });
 
 }
+function checkAnswer(selected) {
+
+  const q = quiz[currentQuestion];
+
+  const result = document.getElementById("result");
+
+  if (selected === q.answer) {
+    score++;
+
+    result.innerHTML =
+      `⭕ 正解！<br><br>
+      <strong>${q.word}</strong><br>
+      ${q.example_ko}<br><br>
+      ${q.example_ja}`;
+
+  } else {
+
+    result.innerHTML =
+      `❌ 不正解<br><br>
+      正解：${q.choices[q.answer]}<br><br>
+      ${q.example_ko}<br><br>
+      ${q.example_ja}`;
+
+  }
+
+  document.getElementById("nextBtn").style.display = "block";
+
+}
+
+function nextQuestion() {
+
+  currentQuestion++;
+
+  if (currentQuestion >= quiz.length) {
+
+    document.querySelector(".container").innerHTML = `
+      <h1>🎉 お疲れさまでした！</h1>
+
+      <h2>${score} / ${quiz.length} 点</h2>
+
+      <button onclick="location.reload()">
+        もう一度挑戦
+      </button>
+    `;
+
+    return;
+  }
+
+  showQuestion();
+
+}
