@@ -1,24 +1,17 @@
 body {
-
-    font-family:
+    font-family: 
     "Hiragino Kaku Gothic ProN",
     "Yu Gothic",
     sans-serif;
 
     background: #fff7f2;
-
     margin: 0;
-
     padding: 20px;
-
 }
 
 
-
 .container {
-
     max-width: 500px;
-
     margin: 0 auto;
 
     background: white;
@@ -27,15 +20,11 @@ body {
 
     border-radius: 25px;
 
-    box-shadow:
-    0 8px 20px rgba(0,0,0,0.08);
-
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 
-
 h1 {
-
     text-align: center;
 
     color: #d85c7a;
@@ -43,9 +32,7 @@ h1 {
     font-size: 28px;
 
     margin-bottom: 10px;
-
 }
-
 
 
 .subtitle {
@@ -130,6 +117,14 @@ h1 {
 
 
 
+#choices button:hover {
+
+    opacity: 0.8;
+
+}
+
+
+
 #choices button:active {
 
     transform: scale(0.97);
@@ -163,6 +158,14 @@ h1 {
     color: #d85c7a;
 
     font-size: 24px;
+
+}
+
+
+
+button {
+
+    cursor: pointer;
 
 }
 
