@@ -1,116 +1,179 @@
 body {
-    font-family: Arial, "Noto Sans JP", sans-serif;
-    background: #fff8f5;
+
+    font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    sans-serif;
+
+    background: #fff7f2;
+
     margin: 0;
+
     padding: 20px;
-    text-align: center;
-    color: #333;
+
 }
+
 
 
 .container {
+
     max-width: 500px;
-    margin: 30px auto;
+
+    margin: 0 auto;
+
     background: white;
+
     padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    border-radius: 25px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,0.08);
+
 }
+
 
 
 h1 {
-    color: #d65a7a;
-    font-size: 26px;
+
+    text-align: center;
+
+    color: #d85c7a;
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
 }
+
 
 
 .subtitle {
+
+    text-align: center;
+
     color: #777;
+
+    font-size: 16px;
+
+    margin-bottom: 25px;
+
 }
+
 
 
 .score {
-    margin: 15px;
-    font-size: 18px;
+
+    text-align: center;
+
+    background: #fff0f5;
+
+    color: #d85c7a;
+
+    font-weight: bold;
+
+    padding: 12px;
+
+    border-radius: 15px;
+
+    margin-bottom: 20px;
+
 }
+
 
 
 #question {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 25px 0;
-}
 
+    background: #fffaf0;
 
-.choice {
-    width: 100%;
-    padding: 14px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 15px;
-    background: #f3b6c8;
-    color: white;
-    font-size: 17px;
-    cursor: pointer;
-}
+    padding: 20px;
 
+    border-radius: 18px;
 
-.choice:hover {
-    background: #e88aa8;
-}
-
-
-#result {
-    margin: 20px;
     font-size: 20px;
+
     font-weight: bold;
+
+    line-height: 1.6;
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
 }
 
 
-.correct {
-    color: green;
-}
 
+#choices button {
 
-.incorrect {
-    color: red;
-}
+    width: 90%;
 
+    min-height: 55px;
 
-#nextButton {
-    padding: 12px 30px;
+    margin: 10px auto;
+
+    display: block;
+
     border: none;
-    border-radius: 20px;
-    background: #7bb7e8;
+
+    border-radius: 15px;
+
+    background: #f3a6b8;
+
     color: white;
-    font-size: 16px;
-    cursor: pointer;
-    display: none;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
 }
 
 
-#nextButton:hover {
-    background: #559bd8;
+
+#choices button:active {
+
+    transform: scale(0.97);
+
 }
-button {
-  width: 85%;
-  max-width: 400px;
-  min-height: 55px;
-  margin: 12px auto;
-  padding: 15px;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 12px;
-  display: block;
-  cursor: pointer;
-}
+
+
 
 #result {
-  font-size: 18px;
-  line-height: 1.8;
-  margin: 20px;
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #f8f8f8;
+
+    border-radius: 18px;
+
+    line-height: 1.8;
+
+    font-size: 16px;
+
 }
 
-h3 {
-  font-size: 24px;
+
+
+#result h3 {
+
+    text-align: center;
+
+    color: #d85c7a;
+
+    font-size: 24px;
+
+}
+
+
+
+hr {
+
+    border: none;
+
+    border-top: 1px solid #ddd;
+
+    margin: 15px 0;
+
 }
