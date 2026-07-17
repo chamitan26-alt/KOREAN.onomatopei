@@ -1,6 +1,3 @@
-window.onerror = function(message, source, lineno) {
-  alert(message + "（" + lineno + "行目）");
-};
 let questions = [];
 let quiz = [];
 let currentQuestion = 0;
@@ -11,31 +8,42 @@ fetch("questions.json")
   .then(data => {
     questions = data;
 
-    // ランダムに10問選ぶ
+    // ランダムに10問選択
     quiz = [...questions]
       .sort(() => Math.random() - 0.5)
       .slice(0, 10);
 
     showQuestion();
+  })
+  .catch(error => {
+    console.error("questions.jsonの読み込みに失敗しました", error);
   });
 
 function showQuestion() {
 
-  document.getElementById("questionNumber").textContent =
-    `第${currentQuestion + 1}問 / 10`;
+  const q = quiz[currentQuestion];
 
-  document.getElementById("word").textContent =
-    quiz[currentQuestion].word;
+  document.getElementById("questionNumber").textContent =
+    `第${currentQuestion + 1}問 / ${quiz.length}`;
+
+  document.getElementById("word").textContent = q.word;
 
   document.getElementById("result").innerHTML = "";
 
   document.getElementById("nextBtn").style.display = "none";
 
   const choicesDiv = document.getElementById("choices");
-
   choicesDiv.innerHTML = "";
 
-  quiz[currentQuestion].choices.forEach((choice, index) => {
+  // 正解位置をランダムにする
+  const choices = [...q.choices];
+  choices.sort(() => Math.random() - 0.5);
+
+  const correctIndex = choices.indexOf(q.choices[q.answer]);
+
+  q.currentAnswer = correctIndex;
+
+  choices.forEach((choice, index) => {
 
     const button = document.createElement("button");
 
@@ -48,28 +56,37 @@ function showQuestion() {
   });
 
 }
+
 function checkAnswer(selected) {
 
   const q = quiz[currentQuestion];
 
   const result = document.getElementById("result");
 
-  if (selected === q.answer) {
+  // ボタンを押したら二度押し防止
+  document.querySelectorAll("#choices button").forEach(btn => {
+    btn.disabled = true;
+  });
+
+  if (selected === q.currentAnswer) {
+
     score++;
 
-    result.innerHTML =
-      `⭕ 正解！<br><br>
-      <strong>${q.word}</strong><br>
-      ${q.example_ko}<br><br>
-      ${q.example_ja}`;
+    result.innerHTML = `
+      <h3>⭕ 正解！</h3>
+      <p><strong>${q.word}</strong></p>
+      <p>${q.example_ko}</p>
+      <p>${q.example_ja}</p>
+    `;
 
   } else {
 
-    result.innerHTML =
-      `❌ 不正解<br><br>
-      正解：${q.choices[q.answer]}<br><br>
-      ${q.example_ko}<br><br>
-      ${q.example_ja}`;
+    result.innerHTML = `
+      <h3>❌ 不正解</h3>
+      <p>正解：<strong>${q.choices[q.answer]}</strong></p>
+      <p>${q.example_ko}</p>
+      <p>${q.example_ja}</p>
+    `;
 
   }
 
