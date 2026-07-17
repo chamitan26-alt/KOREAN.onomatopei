@@ -16,7 +16,7 @@ const scoreText = document.getElementById("score");
 
 
 
-// 開始ボタン
+// 開始
 startButton.onclick = function(){
 
     startArea.style.display = "none";
@@ -33,14 +33,6 @@ startButton.onclick = function(){
 
         showQuestion();
 
-    })
-    .catch(error=>{
-
-        questionText.innerHTML =
-        "問題データを読み込めませんでした";
-
-        console.log(error);
-
     });
 
 };
@@ -52,6 +44,7 @@ function showQuestion(){
 
     answered = false;
 
+    resultText.innerHTML = "";
     nextArea.innerHTML = "";
 
     let q = questions[currentQuestion];
@@ -63,6 +56,33 @@ function showQuestion(){
     q.question;
 
 
+    // 発音ボタン
+    let soundButton =
+    document.createElement("button");
+
+    soundButton.innerHTML =
+    "🔊 発音を聞く";
+
+    soundButton.onclick=function(){
+
+        let utterance =
+        new SpeechSynthesisUtterance(q.question);
+
+        utterance.lang="ko-KR";
+
+        speechSynthesis.speak(utterance);
+
+    };
+
+
+    questionText.appendChild(
+        document.createElement("br")
+    );
+
+    questionText.appendChild(soundButton);
+
+
+
     choicesBox.innerHTML="";
 
 
@@ -71,12 +91,11 @@ function showQuestion(){
 
     choices.forEach(choice=>{
 
-
         let button =
         document.createElement("button");
 
 
-        button.innerHTML = choice;
+        button.innerHTML=choice;
 
 
         button.onclick=function(){
@@ -92,11 +111,10 @@ function showQuestion(){
 
         choicesBox.appendChild(button);
 
-
     });
 
-
 }
+
 
 
 
@@ -116,7 +134,7 @@ function checkAnswer(choice,button){
         btn.disabled=true;
 
 
-        if(btn.innerHTML === q.answer){
+        if(btn.innerHTML===q.answer){
 
             btn.style.background="#90ee90";
 
@@ -126,21 +144,40 @@ function checkAnswer(choice,button){
 
 
 
-    if(choice === q.answer){
+    if(choice===q.answer){
 
         score++;
 
-        resultText.innerHTML="正解！🎉";
+        resultText.innerHTML=
+        "正解！🎉";
 
     }else{
+
+        button.style.background="#ff9999";
 
         resultText.innerHTML=
         "残念… 正解は「"+
         q.answer+"」";
 
-        button.style.background="#ff9999";
-
     }
+
+
+
+    // 解説表示
+    resultText.innerHTML +=
+
+    "<br><br>📖 解説<br>" +
+
+    q.meaning +
+
+    "<br><br>📝 例文<br>" +
+
+    q.example +
+
+    "<br>" +
+
+    q.translation;
+
 
 
     scoreText.innerHTML =
@@ -149,10 +186,12 @@ function checkAnswer(choice,button){
     " / 10";
 
 
+
     let next =
     document.createElement("button");
 
-    next.innerHTML="次の問題へ";
+    next.innerHTML=
+    "次の問題へ";
 
 
     next.onclick=function(){
@@ -166,22 +205,16 @@ function checkAnswer(choice,button){
 
         }else{
 
-
-            questionText.innerHTML=
-            "終了！";
-
+            questionText.innerHTML="終了！";
 
             choicesBox.innerHTML="";
-
 
             resultText.innerHTML=
             "あなたの得点は "+
             score+
             " / 10 点でした✨";
 
-
             nextArea.innerHTML="";
-
 
         }
 
@@ -189,7 +222,6 @@ function checkAnswer(choice,button){
 
 
     nextArea.appendChild(next);
-
 
 }
 
