@@ -5,7 +5,7 @@ let answered = false;
 let loaded = false;
 
 
-// データ読み込み
+// 問題データ読み込み
 fetch("questions.json")
 .then(response => response.json())
 .then(data => {
@@ -13,7 +13,7 @@ fetch("questions.json")
     questions = data;
     loaded = true;
 
-    console.log("問題読み込み完了：" + questions.length);
+    console.log("読み込み完了：" + questions.length + "問");
 
 })
 .catch(error => {
@@ -24,7 +24,7 @@ fetch("questions.json")
 
 
 
-// スタート
+// スタートボタン
 document.getElementById("startButton").onclick = function(){
 
 
@@ -61,7 +61,6 @@ document.getElementById("startButton").onclick = function(){
 
 
 
-
 // 問題表示
 function showQuestion(){
 
@@ -81,7 +80,33 @@ function showQuestion(){
 
     (currentQuestion + 1) +
     "問目<br><br>" +
-    q.question;
+    q.question +
+    "<br><br>" +
+    '<button id="voiceButton">🔊 発音を聞く</button>';
+
+
+
+    // 発音ボタン
+    document.getElementById("voiceButton").onclick = function(){
+
+
+        let word = q.question.split(" の")[0];
+
+
+        let speech = new SpeechSynthesisUtterance(word);
+
+
+        speech.lang = "ko-KR";
+
+        speech.rate = 0.8;
+
+        speech.pitch = 1;
+
+
+        window.speechSynthesis.speak(speech);
+
+
+    };
 
 
 
@@ -93,7 +118,6 @@ function showQuestion(){
         return Math.random() - 0.5;
 
     });
-
 
 
     let html = "";
@@ -114,11 +138,11 @@ function showQuestion(){
     });
 
 
-
     document.getElementById("choices").innerHTML = html;
 
 
     document.getElementById("result").innerHTML = "";
+
 
     document.getElementById("nextArea").innerHTML = "";
 
@@ -133,15 +157,6 @@ function showQuestion(){
             checkAnswer(this);
 
         };
-
-
-    });
-
-
-}
-
-
-
 // 答え確認
 function checkAnswer(button){
 
@@ -162,7 +177,6 @@ function checkAnswer(button){
     let selected = button.textContent;
 
 
-
     document.querySelectorAll(".choiceButton")
     .forEach(function(btn){
 
@@ -181,10 +195,15 @@ function checkAnswer(button){
 
 
 
+    let resultText = "";
+
+
+
     if(selected === q.answer){
 
 
         score++;
+
 
         button.classList.add("correct");
 
@@ -215,17 +234,21 @@ function checkAnswer(button){
     resultText +
     "</h3>" +
 
+
     "<p><b>読み方：</b>" +
     q.pronunciation +
     "</p>" +
+
 
     "<p><b>意味：</b>" +
     q.meaning +
     "</p>" +
 
+
     "<p><b>例文：</b><br>" +
     q.example +
     "</p>" +
+
 
     "<p><b>日本語：</b><br>" +
     q.translation +
@@ -245,12 +268,11 @@ function checkAnswer(button){
 
     '<button onclick="nextQuestion()">次の問題</button>';
 
-
 }
 
 
 
-// 次へ
+// 次の問題
 function nextQuestion(){
 
 
@@ -258,6 +280,7 @@ function nextQuestion(){
 
 
     if(currentQuestion >= 10){
+
 
         showResult();
 
@@ -275,7 +298,7 @@ function nextQuestion(){
 
 
 
-// 結果
+// 結果表示
 function showResult(){
 
 
@@ -300,6 +323,11 @@ function showResult(){
 
 
     document.getElementById("nextArea").innerHTML = "";
+
+
+}
+
+    });
 
 
 }
