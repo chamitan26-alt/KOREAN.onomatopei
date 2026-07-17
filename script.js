@@ -13,10 +13,11 @@ const choicesArea = document.getElementById("choices");
 const resultText = document.getElementById("result");
 const explanationText = document.getElementById("explanation");
 const nextButton = document.getElementById("nextButton");
-const scoreText = document.getElementById("score");
 
 
-// データ読み込み
+
+// 問題データ読み込み
+
 fetch("questions.json")
 .then(response => response.json())
 .then(data => {
@@ -26,20 +27,24 @@ fetch("questions.json")
 })
 .catch(error => {
 
-    console.log("データ読み込みエラー", error);
+    console.log(error);
 
 });
 
 
 
+
 // スタート
+
 startButton.onclick = function(){
 
-    startArea.style.display = "none";
-    quizArea.style.display = "block";
+    startArea.style.display="none";
 
-    currentQuestion = 0;
-    score = 0;
+    quizArea.style.display="block";
+
+    currentQuestion=0;
+
+    score=0;
 
     showQuestion();
 
@@ -47,110 +52,163 @@ startButton.onclick = function(){
 
 
 
+
+
 // 問題表示
+
 function showQuestion(){
 
-    answered = false;
 
-    resultText.innerHTML = "";
-    explanationText.innerHTML = "";
+    answered=false;
 
-    nextButton.style.display = "none";
+
+    resultText.innerHTML="";
+
+    explanationText.innerHTML="";
+
+
+    nextButton.style.display="none";
 
 
     let q = questions[currentQuestion];
 
 
+
     questionText.innerHTML =
-    (currentQuestion + 1) +
-    "問目<br><br>" +
-    q.question;
+    (currentQuestion+1)+"問目<br><br>"+q.question;
 
 
 
-    choicesArea.innerHTML = "";
+    // 韓国語だけ発音
+
+    speakKorean(q.question);
 
 
 
-    // 選択肢をコピーしてシャッフル
-    let choices = [...q.choices];
-
-    choices.sort(() => Math.random() - 0.5);
+    choicesArea.innerHTML="";
 
 
 
-    choices.forEach(choice => {
+    let choices=[...q.choices];
 
 
-        let button = document.createElement("button");
-
-        button.innerHTML = choice;
+    choices.sort(()=>Math.random()-0.5);
 
 
-        button.onclick = function(){
+
+    choices.forEach(choice=>{
+
+
+        let button=document.createElement("button");
+
+
+        button.innerHTML=choice;
+
+
+
+        button.onclick=function(){
 
             checkAnswer(choice,q);
 
         };
 
 
+
         choicesArea.appendChild(button);
+
 
 
     });
 
 
+
 }
+
+
+
+
+
+
+// 発音機能
+
+function speakKorean(text){
+
+
+    let koreanText =
+    text.split(" の意味")[0];
+
+
+    const speech =
+    new SpeechSynthesisUtterance();
+
+
+
+    speech.text=koreanText;
+
+
+    speech.lang="ko-KR";
+
+
+    speech.rate=0.8;
+
+
+
+    speechSynthesis.speak(speech);
+
+
+
+}
+
+
 
 
 
 
 // 答え確認
+
 function checkAnswer(choice,q){
 
 
-    if(answered) return;
+    if(answered)return;
 
 
-    answered = true;
+    answered=true;
 
 
-    if(choice === q.answer){
+
+    if(choice===q.answer){
+
 
         score++;
 
-        resultText.innerHTML =
-        "⭕ 正解！";
+
+        resultText.innerHTML="⭕ 正解！";
 
 
     }else{
 
 
-        resultText.innerHTML =
-        "❌ 不正解<br>正解：" + q.answer;
+        resultText.innerHTML=
+        "❌ 不正解<br>正解："+q.answer;
 
 
     }
 
 
 
-    // 解説表示
     if(q.explanation){
 
-        explanationText.innerHTML =
-        "📖 解説<br>" +
-        q.explanation;
 
-    }else{
+        explanationText.innerHTML=
+        "📖 解説<br>"+q.explanation;
 
-        explanationText.innerHTML =
-        "📖 解説はありません";
 
     }
 
 
 
-    nextButton.style.display = "block";
+    nextButton.style.display="block";
+
 
 
 }
@@ -159,11 +217,14 @@ function checkAnswer(choice,q){
 
 
 
-// 次の問題
-nextButton.onclick = function(){
+
+// 次へ
+
+nextButton.onclick=function(){
 
 
     currentQuestion++;
+
 
 
     if(currentQuestion < questions.length){
@@ -172,21 +233,19 @@ nextButton.onclick = function(){
         showQuestion();
 
 
+
     }else{
 
 
-        quizArea.innerHTML =
+        quizArea.innerHTML=
 
-        "<h2>終了！</h2>" +
+        "<h2>終了！</h2>"+
+        "<p>得点："+score+"/"+questions.length+"</p>";
 
-        "<p>あなたの点数：" +
-        score +
-        " / " +
-        questions.length +
-        "</p>";
 
 
     }
+
 
 
 };
