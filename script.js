@@ -20,6 +20,8 @@ function startQuiz() {
   currentQuestion = 0;
   score = 0;
 
+  updateScore();
+
   quizQuestions = [...questions]
     .sort(() => Math.random() - 0.5)
     .slice(0, 10);
@@ -28,8 +30,17 @@ function startQuiz() {
 }
 
 
+// 得点表示更新
+function updateScore(){
+
+  document.getElementById("score").textContent =
+    "現在の得点：" + score + " / 10";
+
+}
+
+
 // 問題表示
-function showQuestion() {
+function showQuestion(){
 
   answered = false;
 
@@ -38,7 +49,7 @@ function showQuestion() {
 
   document.getElementById("question").innerHTML =
     `
-    第 ${currentQuestion + 1} 問 / 10問<br>
+    第 ${currentQuestion + 1} 問 / 10問<br><br>
     ${q.question}
     `;
 
@@ -94,16 +105,12 @@ function checkAnswer(choice){
 
     score++;
 
+    updateScore();
+
 
     document.getElementById("result").innerHTML =
     `
     <h3>⭕ 正解！</h3>
-
-    <p>現在の得点：${score} / 10</p>
-
-    <hr>
-
-    <p>韓国語：${q.question}</p>
 
     <p>発音：${q.pronunciation}</p>
 
@@ -115,7 +122,7 @@ function checkAnswer(choice){
     </p>
 
     <p>
-    ${q.translation}
+    日本語：${q.translation}
     </p>
     `;
 
@@ -127,11 +134,7 @@ function checkAnswer(choice){
     `
     <h3>❌ 不正解</h3>
 
-    <p>現在の得点：${score} / 10</p>
-
     <p>正解：${q.answer}</p>
-
-    <hr>
 
     <p>発音：${q.pronunciation}</p>
 
@@ -143,7 +146,7 @@ function checkAnswer(choice){
     </p>
 
     <p>
-    ${q.translation}
+    日本語：${q.translation}
     </p>
     `;
 
@@ -196,9 +199,7 @@ function showNextButton(){
   }
 
 
-  document.getElementById("choices")
-    .innerHTML = "";
-
+  document.getElementById("choices").innerHTML = "";
 
   document.getElementById("choices")
     .appendChild(button);
@@ -216,11 +217,16 @@ function showScore(){
     "🎉 結果発表 🎉";
 
 
+  document.getElementById("score")
+    .textContent =
+    "最終結果：" + score + " / 10";
+
+
   document.getElementById("result")
     .innerHTML =
     `
     <h2>
-    ${score} / 10 問正解！
+    ${score}問正解！
     </h2>
     `;
 
@@ -240,9 +246,7 @@ function showScore(){
   };
 
 
-  document.getElementById("choices")
-    .innerHTML = "";
-
+  document.getElementById("choices").innerHTML = "";
 
   document.getElementById("choices")
     .appendChild(button);
