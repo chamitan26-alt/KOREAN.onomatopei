@@ -35,8 +35,12 @@ function showQuestion() {
 
   const q = quizQuestions[currentQuestion];
 
-  document.getElementById("question").textContent =
-    q.question;
+
+  document.getElementById("question").innerHTML =
+    `
+    第 ${currentQuestion + 1} 問 / 10問<br>
+    ${q.question}
+    `;
 
 
   const choicesArea =
@@ -54,7 +58,9 @@ function showQuestion() {
     const button =
       document.createElement("button");
 
+
     button.textContent = choice;
+
 
     button.onclick = function(){
 
@@ -83,13 +89,19 @@ function checkAnswer(choice){
 
   const q = quizQuestions[currentQuestion];
 
+
   if(choice === q.answer){
 
     score++;
 
+
     document.getElementById("result").innerHTML =
     `
     <h3>⭕ 正解！</h3>
+
+    <p>現在の得点：${score} / 10</p>
+
+    <hr>
 
     <p>韓国語：${q.question}</p>
 
@@ -97,11 +109,14 @@ function checkAnswer(choice){
 
     <p>意味：${q.meaning}</p>
 
-    <p>例文：<br>
+    <p>
+    例文：<br>
     ${q.example}
     </p>
 
-    <p>${q.translation}</p>
+    <p>
+    ${q.translation}
+    </p>
     `;
 
 
@@ -112,17 +127,24 @@ function checkAnswer(choice){
     `
     <h3>❌ 不正解</h3>
 
+    <p>現在の得点：${score} / 10</p>
+
     <p>正解：${q.answer}</p>
+
+    <hr>
 
     <p>発音：${q.pronunciation}</p>
 
     <p>意味：${q.meaning}</p>
 
-    <p>例文：<br>
+    <p>
+    例文：<br>
     ${q.example}
     </p>
 
-    <p>${q.translation}</p>
+    <p>
+    ${q.translation}
+    </p>
     `;
 
   }
@@ -137,11 +159,13 @@ function checkAnswer(choice){
 // 次へボタン
 function showNextButton(){
 
+
   const button =
     document.createElement("button");
 
 
   if(currentQuestion < quizQuestions.length - 1){
+
 
     button.textContent =
       "次の問題へ";
@@ -186,15 +210,18 @@ function showNextButton(){
 // 結果表示
 function showScore(){
 
+
   document.getElementById("question")
-    .textContent =
+    .innerHTML =
     "🎉 結果発表 🎉";
 
 
   document.getElementById("result")
     .innerHTML =
     `
-    <h2>${score} / 10 問正解！</h2>
+    <h2>
+    ${score} / 10 問正解！
+    </h2>
     `;
 
 
