@@ -22,11 +22,8 @@ fetch("questions.json")
     });
 
 
-function showQuestion() {
 
-    if (!questions[currentQuestion]) {
-        return;
-    }
+function showQuestion() {
 
     answered = false;
 
@@ -35,7 +32,9 @@ function showQuestion() {
 
     nextButton.style.display = "none";
 
+
     let q = questions[currentQuestion];
+
 
     questionText.textContent =
         `${currentQuestion + 1}問目：${q.question}`;
@@ -44,7 +43,12 @@ function showQuestion() {
     choicesArea.innerHTML = "";
 
 
-    q.choices.forEach(choice => {
+    // ★選択肢を毎回シャッフル
+    let shuffledChoices = shuffle([...q.choices]);
+
+
+    shuffledChoices.forEach(choice => {
+
 
         const button = document.createElement("button");
 
@@ -65,6 +69,7 @@ function showQuestion() {
 
                 resultText.textContent = "⭕ 正解！";
                 resultText.className = "correct";
+
 
             } else {
 
@@ -101,6 +106,7 @@ nextButton.onclick = () => {
     if (currentQuestion < questions.length) {
 
         showQuestion();
+
 
     } else {
 
