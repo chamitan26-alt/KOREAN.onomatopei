@@ -2,6 +2,8 @@ let questions = [];
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
+let currentKoreanWord = "";
+
 
 
 const startButton = document.getElementById("startButton");
@@ -12,24 +14,32 @@ const questionText = document.getElementById("question");
 const choicesArea = document.getElementById("choices");
 const resultText = document.getElementById("result");
 const explanationText = document.getElementById("explanation");
+
 const nextButton = document.getElementById("nextButton");
+const speakButton = document.getElementById("speakButton");
 
 
 
-// 問題データ読み込み
+
+// 問題読み込み
 
 fetch("questions.json")
+
 .then(response => response.json())
+
 .then(data => {
 
     questions = data;
 
 })
+
 .catch(error => {
 
-    console.log(error);
+    console.log("読み込みエラー", error);
 
 });
+
+
 
 
 
@@ -38,17 +48,19 @@ fetch("questions.json")
 
 startButton.onclick = function(){
 
-    startArea.style.display="none";
+    startArea.style.display = "none";
 
-    quizArea.style.display="block";
+    quizArea.style.display = "block";
 
-    currentQuestion=0;
+    currentQuestion = 0;
 
-    score=0;
+    score = 0;
 
     showQuestion();
 
 };
+
+
 
 
 
@@ -59,15 +71,16 @@ startButton.onclick = function(){
 function showQuestion(){
 
 
-    answered=false;
+    answered = false;
 
 
-    resultText.innerHTML="";
+    resultText.innerHTML = "";
 
-    explanationText.innerHTML="";
+    explanationText.innerHTML = "";
 
 
-    nextButton.style.display="none";
+    nextButton.style.display = "none";
+
 
 
     let q = questions[currentQuestion];
@@ -75,40 +88,46 @@ function showQuestion(){
 
 
     questionText.innerHTML =
-    (currentQuestion+1)+"問目<br><br>"+q.question;
+    (currentQuestion + 1)
+    + "問目<br><br>"
+    + q.question;
 
 
 
-    // 韓国語だけ発音
 
-    speakKorean(q.question);
+    // 韓国語部分を保存
 
-
-
-    choicesArea.innerHTML="";
+    currentKoreanWord =
+    q.question.split(" の意味")[0];
 
 
 
-    let choices=[...q.choices];
-
-
-    choices.sort(()=>Math.random()-0.5);
+    choicesArea.innerHTML = "";
 
 
 
-    choices.forEach(choice=>{
+    let choices = [...q.choices];
 
 
-        let button=document.createElement("button");
-
-
-        button.innerHTML=choice;
+    choices.sort(() => Math.random() - 0.5);
 
 
 
-        button.onclick=function(){
+    choices.forEach(choice => {
+
+
+        let button = document.createElement("button");
+
+
+        button.innerHTML = choice;
+
+
+
+        button.onclick = function(){
+
 
             checkAnswer(choice,q);
+
 
         };
 
@@ -117,9 +136,7 @@ function showQuestion(){
         choicesArea.appendChild(button);
 
 
-
     });
-
 
 
 }
@@ -129,13 +146,11 @@ function showQuestion(){
 
 
 
-// 発音機能
-
-function speakKorean(text){
 
 
-    let koreanText =
-    text.split(" の意味")[0];
+// 発音ボタン
+
+speakButton.onclick = function(){
 
 
     const speech =
@@ -143,21 +158,24 @@ function speakKorean(text){
 
 
 
-    speech.text=koreanText;
+    speech.text = currentKoreanWord;
 
 
-    speech.lang="ko-KR";
+    speech.lang = "ko-KR";
 
 
-    speech.rate=0.8;
+    speech.rate = 0.8;
 
 
 
     speechSynthesis.speak(speech);
 
 
+};
 
-}
+
+
+
 
 
 
@@ -169,46 +187,49 @@ function speakKorean(text){
 function checkAnswer(choice,q){
 
 
-    if(answered)return;
+    if(answered) return;
 
 
-    answered=true;
+    answered = true;
 
 
 
-    if(choice===q.answer){
+    if(choice === q.answer){
 
 
         score++;
 
 
-        resultText.innerHTML="⭕ 正解！";
+        resultText.innerHTML =
+        "⭕ 正解！";
 
 
     }else{
 
 
-        resultText.innerHTML=
-        "❌ 不正解<br>正解："+q.answer;
+        resultText.innerHTML =
+        "❌ 不正解<br>正解：" + q.answer;
 
 
     }
+
 
 
 
     if(q.explanation){
 
 
-        explanationText.innerHTML=
-        "📖 解説<br>"+q.explanation;
+        explanationText.innerHTML =
+        "📖 解説<br>"
+        + q.explanation;
 
 
     }
 
 
 
-    nextButton.style.display="block";
 
+    nextButton.style.display = "block";
 
 
 }
@@ -218,9 +239,11 @@ function checkAnswer(choice,q){
 
 
 
+
+
 // 次へ
 
-nextButton.onclick=function(){
+nextButton.onclick = function(){
 
 
     currentQuestion++;
@@ -233,19 +256,21 @@ nextButton.onclick=function(){
         showQuestion();
 
 
-
     }else{
 
 
-        quizArea.innerHTML=
+        quizArea.innerHTML =
 
-        "<h2>終了！</h2>"+
-        "<p>得点："+score+"/"+questions.length+"</p>";
+        "<h2>終了！</h2>" +
 
+        "<p>得点：" +
+        score +
+        " / " +
+        questions.length +
+        "</p>";
 
 
     }
-
 
 
 };
