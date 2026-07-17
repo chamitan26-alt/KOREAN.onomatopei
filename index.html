@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>韓国語オノマトペクイズ</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シムさんと楽しく学ぶ韓国語</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🇰🇷 韓国語オノマトペ</h1>
+<h1>🇰🇷 シムさんと楽しく学ぶ韓国語</h1>
 
-<h2 id="word">두근두근</h2>
+<h3 id="questionNumber">第1問 / 10</h3>
+
+<h2 id="word">読み込み中...</h2>
 
 <p>意味は？</p>
 
-<button onclick="check(1)">① ドキドキ</button>
-<button onclick="check(2)">② キラキラ</button>
-<button onclick="check(3)">③ ぐつぐつ</button>
-<button onclick="check(4)">④ こっそり</button>
+<div id="choices"></div>
 
 <div id="result"></div>
+
+<button id="nextBtn" onclick="nextQuestion()" style="display:none;">
+次の問題
+</button>
 
 </div>
 
