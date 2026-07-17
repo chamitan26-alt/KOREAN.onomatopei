@@ -322,12 +322,13 @@ function showResult(){
 
 
 
-    document.getElementById("nextArea").innerHTML = "";
+   document.getElementById("nextArea").innerHTML =
+
+'<button id="nextButton">次の問題</button>';
 
 
-}
+document.getElementById("nextButton").onclick = function(){
 
-    });
+    nextQuestion();
 
-
-}
+};
