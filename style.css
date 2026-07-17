@@ -317,3 +317,24 @@ hr {
     z-index: 9999;
     pointer-events: auto;
 }
+.choiceButton.correct {
+
+    background: #7ac943;
+
+}
+
+
+.choiceButton.wrong {
+
+    background: #e86a8d;
+
+}
+
+
+.choiceButton:disabled {
+
+    cursor: default;
+
+    opacity: 0.9;
+
+}
