@@ -259,15 +259,15 @@ nextButton.onclick = function(){
     }else{
 
 
-        quizArea.innerHTML =
+       quizArea.innerHTML =
 
-        "<h2>終了！</h2>" +
+"<h2>終了！</h2>" +
 
-        "<p>得点：" +
-        score +
-        " / " +
-        questions.length +
-        "</p>";
+"<p>得点："+score+"/"+questions.length+"</p>" +
+
+"<button onclick='location.reload()'>" +
+"もう一度挑戦する" +
+"</button>";
 
 
     }
