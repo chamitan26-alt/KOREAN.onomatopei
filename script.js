@@ -11,9 +11,27 @@ fetch("questions.json")
 .then(data => {
 
     questions = data;
-    startQuiz();
 
 });
+
+
+
+// スタートボタン
+document.getElementById("startButton")
+.onclick = function(){
+
+
+    document.getElementById("startArea")
+    .style.display = "none";
+
+
+    document.getElementById("quizArea")
+    .style.display = "block";
+
+
+    startQuiz();
+
+};
 
 
 
@@ -21,7 +39,9 @@ fetch("questions.json")
 function startQuiz(){
 
     currentQuestion = 0;
+
     score = 0;
+
 
     updateScore();
 
@@ -40,7 +60,8 @@ function startQuiz(){
 // 得点表示
 function updateScore(){
 
-    document.getElementById("score").textContent =
+    document.getElementById("score")
+    .textContent =
     "現在の得点：" + score + " / 10";
 
 }
@@ -50,13 +71,16 @@ function updateScore(){
 // 問題表示
 function showQuestion(){
 
+
     answered = false;
 
 
     const q = quizQuestions[currentQuestion];
 
 
-    document.getElementById("question").innerHTML =
+
+    document.getElementById("question")
+    .innerHTML =
 
     `
     第 ${currentQuestion + 1} 問 / 10問
@@ -66,17 +90,16 @@ function showQuestion(){
 
 
 
-    const choicesArea =
-    document.getElementById("choices");
+    document.getElementById("choices")
+    .innerHTML = "";
 
 
-    choicesArea.innerHTML = "";
+    document.getElementById("result")
+    .innerHTML = "";
 
 
-    document.getElementById("result").innerHTML = "";
-
-
-    document.getElementById("nextArea").innerHTML = "";
+    document.getElementById("nextArea")
+    .innerHTML = "";
 
 
 
@@ -95,6 +118,7 @@ function showQuestion(){
         button.textContent = choice;
 
 
+
         button.onclick = function(){
 
 
@@ -110,7 +134,8 @@ function showQuestion(){
         };
 
 
-        choicesArea.appendChild(button);
+        document.getElementById("choices")
+        .appendChild(button);
 
 
     });
@@ -136,7 +161,8 @@ function checkAnswer(choice){
         updateScore();
 
 
-        document.getElementById("result").innerHTML =
+        document.getElementById("result")
+        .innerHTML =
 
         `
         <h3>⭕ 正解！</h3>
@@ -145,21 +171,17 @@ function checkAnswer(choice){
 
         <p>意味：${q.meaning}</p>
 
-        <p>
-        例文：<br>
-        ${q.example}
-        </p>
+        <p>例文：<br>${q.example}</p>
 
-        <p>
-        日本語：${q.translation}
-        </p>
+        <p>日本語：${q.translation}</p>
         `;
 
 
     }else{
 
 
-        document.getElementById("result").innerHTML =
+        document.getElementById("result")
+        .innerHTML =
 
         `
         <h3>❌ 不正解</h3>
@@ -170,19 +192,13 @@ function checkAnswer(choice){
 
         <p>意味：${q.meaning}</p>
 
-        <p>
-        例文：<br>
-        ${q.example}
-        </p>
+        <p>例文：<br>${q.example}</p>
 
-        <p>
-        日本語：${q.translation}
-        </p>
+        <p>日本語：${q.translation}</p>
         `;
 
 
     }
-
 
 
     createNextButton();
@@ -192,12 +208,13 @@ function checkAnswer(choice){
 
 
 
-// 次へボタン作成
+// 次へボタン
 function createNextButton(){
 
 
     const button =
     document.createElement("button");
+
 
 
     if(currentQuestion < quizQuestions.length - 1){
@@ -209,11 +226,9 @@ function createNextButton(){
 
         button.onclick = function(){
 
-
             currentQuestion++;
 
             showQuestion();
-
 
         };
 
@@ -227,9 +242,7 @@ function createNextButton(){
 
         button.onclick = function(){
 
-
             showScore();
-
 
         };
 
@@ -242,34 +255,37 @@ function createNextButton(){
     .appendChild(button);
 
 
-
 }
 
 
 
-// 結果表示
+// 結果
 function showScore(){
 
 
-    document.getElementById("question").innerHTML =
-
+    document.getElementById("question")
+    .innerHTML =
     "🎉 結果発表 🎉";
 
 
-
-    document.getElementById("score").textContent =
-
+    document.getElementById("score")
+    .textContent =
     "最終結果：" + score + " / 10";
 
 
-
-    document.getElementById("result").innerHTML =
+    document.getElementById("result")
+    .innerHTML =
 
     `
     <h2>
     ${score}問正解！
     </h2>
     `;
+
+
+
+    document.getElementById("nextArea")
+    .innerHTML = "";
 
 
 
@@ -291,11 +307,8 @@ function showScore(){
 
 
 
-    document.getElementById("nextArea").innerHTML = "";
-
     document.getElementById("nextArea")
     .appendChild(button);
-
 
 
 }
