@@ -355,3 +355,20 @@ hr {
     cursor:pointer;
 
 }
+#retryButton{
+
+    display:block;
+
+    width:80%;
+
+    max-width:300px;
+
+    margin:30px auto;
+
+    padding:15px;
+
+    font-size:18px;
+
+    border-radius:12px;
+
+}
