@@ -4,22 +4,26 @@ let score = 0;
 let answered = false;
 
 
-// 問題データ読み込み
+// 問題読み込み
 fetch("questions.json")
-    .then(response => response.json())
-    .then(data => {
+.then(response => response.json())
+.then(data => {
 
-        questions = data;
+    questions = data;
 
-        document.getElementById("startButton").addEventListener("click", startQuiz);
+    document
+    .getElementById("startButton")
+    .addEventListener("click", startQuiz);
 
-    })
-    .catch(error => {
-        console.log("問題読み込みエラー", error);
-    });
+})
+.catch(error => {
+
+    console.log("読み込みエラー", error);
+
+});
 
 
-// スタート
+// クイズ開始
 function startQuiz(){
 
     document.getElementById("startButton").style.display = "none";
@@ -28,7 +32,7 @@ function startQuiz(){
     currentQuestion = 0;
 
     document.getElementById("score").innerHTML =
-    "スコア：0点";
+    "スコア：0 / 10";
 
     shuffleQuestions();
 
@@ -37,7 +41,7 @@ function startQuiz(){
 }
 
 
-// 問題をシャッフル
+// 問題シャッフル
 function shuffleQuestions(){
 
     questions.sort(() => Math.random() - 0.5);
@@ -54,21 +58,37 @@ function showQuestion(){
 
 
     document.getElementById("question").innerHTML =
-    (currentQuestion + 1) + "問目<br>" + q.question;
+    (currentQuestion + 1) + "問目<br><br>" + q.question;
 
 
     let choicesHTML = "";
 
 
-    q.choices.forEach(choice => {
+    q.choices.forEach(function(choice,index){
 
         choicesHTML +=
-        `<button onclick="checkAnswer('${choice}')">${choice}</button>`;
+        '<button class="choiceButton" data-index="' + index + '">' +
+        choice +
+        '</button>';
 
     });
 
 
     document.getElementById("choices").innerHTML = choicesHTML;
+
+
+    document.querySelectorAll(".choiceButton")
+    .forEach(function(button){
+
+        button.addEventListener("click",function(){
+
+            let index = this.dataset.index;
+
+            checkAnswer(q.choices[index]);
+
+        });
+
+    });
 
 
     document.getElementById("nextArea").style.display = "none";
@@ -79,7 +99,10 @@ function showQuestion(){
 // 答え確認
 function checkAnswer(choice){
 
-    if(answered) return;
+    if(answered){
+        return;
+    }
+
 
     answered = true;
 
@@ -91,11 +114,11 @@ function checkAnswer(choice){
 
         score++;
 
-        alert("正解✨");
+        alert("正解です✨");
 
     }else{
 
-        alert("正解は「" + q.answer + "」です");
+        alert("不正解\n正解は「" + q.answer + "」です");
 
     }
 
@@ -104,12 +127,13 @@ function checkAnswer(choice){
     "スコア：" + score + " / 10";
 
 
-    document.getElementById("nextArea").style.display = "block";
+    document.getElementById("nextArea").style.display =
+    "block";
 
 }
 
 
-// 次へ
+// 次の問題
 function nextQuestion(){
 
     currentQuestion++;
@@ -128,11 +152,11 @@ function nextQuestion(){
 }
 
 
-// 結果
+// 結果表示
 function showResult(){
 
     document.getElementById("question").innerHTML =
-    "🎉終了！";
+    "🎉 チャレンジ終了！";
 
 
     document.getElementById("choices").innerHTML =
@@ -144,7 +168,8 @@ function showResult(){
 
 
     document.getElementById("result").innerHTML =
+
     "<h3>結果</h3>" +
-    "<p>10問中 " + score + "問正解！</p>";
+    "<p>10問中 " + score + "問正解でした！</p>";
 
 }
