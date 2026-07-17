@@ -173,29 +173,3 @@ function showResult(){
     "<p>10問中 " + score + "問正解でした！</p>";
 
 }
-fetch("./questions.json")
-.then(response => {
-
-    if (!response.ok) {
-        throw new Error("questions.jsonが読み込めません");
-    }
-
-    return response.json();
-
-})
-.then(data => {
-
-    questions = data;
-
-    document
-    .getElementById("startButton")
-    .addEventListener("click", startQuiz);
-
-})
-.catch(error => {
-
-    alert("問題データの読み込みに失敗しました");
-
-    console.log(error);
-
-});
