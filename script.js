@@ -227,13 +227,10 @@ function checkAnswer(choice,q){
 
 nextButton.onclick = function(){
 
-
     currentQuestion++;
 
 
-
     if(currentQuestion < quizQuestions.length){
-
 
         showQuestion();
 
@@ -241,32 +238,28 @@ nextButton.onclick = function(){
     }else{
 
 
-        quizArea.innerHTML =
+        quizArea.innerHTML = `
 
-        "<h2>終了！</h2>" +
+        <h2>🎉終了！</h2>
 
-        "<p>得点：" +
-        score +
-        " / 10</p>" +
+        <p>
+        得点：${score} / 10
+        </p>
 
-       quizArea.innerHTML =
+        <button id="retryButton">
+        もう一度挑戦する
+        </button>
 
-"<h2>終了！</h2>" +
-
-"<p>得点：" +
-score +
-" / 10</p>" +
-
-"<button id='retryButton'>"
-+
-"もう一度挑戦する"
-+
-"</button>";
+        `;
 
 
+        document.getElementById("retryButton").onclick = function(){
 
-document.getElementById("retryButton").onclick = function(){
+            location.reload();
 
-    location.reload();
+        };
+
+
+    }
 
 };
