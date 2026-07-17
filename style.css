@@ -338,3 +338,20 @@ hr {
     opacity: 0.9;
 
 }
+#retryButton{
+
+    width:80%;
+
+    max-width:300px;
+
+    padding:15px;
+
+    margin-top:25px;
+
+    font-size:18px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+}
