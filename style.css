@@ -1,374 +1,237 @@
-body {
+/* 全体 */
+* {
+  box-sizing: border-box;
+}
 
-    font-family:
-    "Hiragino Kaku Gothic ProN",
-    "Yu Gothic",
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    Arial,
     sans-serif;
 
-    background: #fff7f2;
+  background: linear-gradient(
+    180deg,
+    #fff7fb,
+    #f5f9ff
+  );
 
-    margin: 0;
+  color: #333;
+  min-height: 100vh;
 
-    padding: 10px;
-
+  display: flex;
+  justify-content: center;
 }
 
 
-
+/* アプリ全体 */
 .container {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
 
-    max-width: 500px;
+  padding: 30px 20px;
 
-    margin: 0 auto;
-
-    background: white;
-
-    padding: 25px;
-
-    border-radius: 25px;
-
-    box-shadow:
-    0 8px 20px rgba(0,0,0,0.08);
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 
-
+/* タイトル */
 h1 {
+  margin-top: 40px;
+  margin-bottom: 10px;
 
-    text-align: center;
+  font-size: 28px;
+  font-weight: 700;
 
-    color: #d85c7a;
+  color: #2b5dab;
 
-    font-size: 28px;
-
-    margin-bottom: 10px;
-
+  text-align: center;
 }
-
 
 
 .subtitle {
+  font-size: 15px;
+  color: #777;
 
-    text-align: center;
+  margin-bottom: 35px;
 
-    color: #777;
-
-    font-size: 16px;
-
-    margin-bottom: 25px;
-
+  text-align: center;
 }
 
 
+/* カード */
+.card {
+  width: 100%;
 
-.score {
+  background: white;
 
-    text-align: center;
+  border-radius: 24px;
 
-    background: #fff0f5;
+  padding: 25px;
 
-    color: #d85c7a;
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.08);
 
-    font-weight: bold;
+  margin-bottom: 20px;
 
-    font-size: 18px;
-
-    padding: 12px;
-
-    border-radius: 15px;
-
-    margin-bottom: 20px;
-
+  text-align: center;
 }
 
 
+/* 問題番号 */
+.question-number {
 
-#question {
+  font-size: 14px;
 
-    background: #fffaf0;
+  color: #888;
 
-    padding: 22px;
-
-    border-radius: 18px;
-
-    font-size: 21px;
-
-    font-weight: bold;
-
-    line-height: 1.7;
-
-    text-align: center;
-
-    margin-bottom: 20px;
-
+  margin-bottom: 15px;
 }
 
+
+/* 韓国語単語 */
+.korean-word {
+
+  font-size: 34px;
+
+  font-weight: bold;
+
+  color: #e75480;
+
+  margin: 20px 0;
+
+}
 
 
 /* 選択肢ボタン */
+.answer-button {
 
-#choices button {
+  width: 100%;
 
+  padding: 15px;
 
-    width: 95%;
+  margin: 10px 0;
 
+  border-radius: 18px;
 
-    min-height: 65px;
+  border: none;
 
+  background: #f1f6ff;
 
-    margin: 12px auto;
+  color: #333;
 
+  font-size: 16px;
 
-    display: block;
+  font-weight: 600;
 
+  cursor: pointer;
 
-    border: none;
-
-
-    border-radius: 18px;
-
-
-    background: #8fcfc9;
-
-
-    color: white;
-
-
-    font-size: 19px;
-
-
-    font-weight: bold;
-
+  transition: 0.2s;
 
 }
 
 
+/* 押した時 */
+.answer-button:active {
 
-/* 次の問題ボタン */
-
-#nextArea button {
-
-
-    width: 100%;
-
-
-    height: 80px;
-
-
-    margin: 35px auto 20px;
-
-
-    display: block;
-
-
-    border: none;
-
-
-    border-radius: 22px;
-
-
-    background: #e86a8d;
-
-
-    color: white;
-
-
-    font-size: 24px;
-
-
-    font-weight: bold;
-
-
-    box-shadow:
-    0 5px 12px rgba(0,0,0,0.15);
-
+  transform: scale(0.96);
 
 }
 
 
+/* 正解 */
+.correct {
 
-#choices button:active,
-#nextArea button:active {
+  background: #d9f7e8 !important;
 
-
-    transform: scale(0.96);
-
-
-}
-
-
-
-#result {
-
-
-    margin-top: 25px;
-
-
-    padding: 22px;
-
-
-    background: #fafafa;
-
-
-    border-radius: 20px;
-
-
-    line-height: 1.9;
-
-
-    font-size: 17px;
-
+  color: #16834b;
 
 }
 
 
+/* 不正解 */
+.wrong {
 
-#result h3 {
+  background: #ffe1e5 !important;
 
-
-    text-align: center;
-
-
-    color: #d85c7a;
-
-
-    font-size: 26px;
-
+  color: #d22;
 
 }
 
 
+/* メインボタン */
+.main-button {
 
-#result p {
+  width: 90%;
 
+  padding: 17px;
 
-    margin: 15px 0;
+  border-radius: 30px;
 
+  border: none;
 
-}
+  background:
 
+    linear-gradient(
+      90deg,
+      #5b8def,
+      #8c6ff0
+    );
 
+  color:white;
 
-button {
+  font-size:18px;
 
+  font-weight:bold;
 
-    cursor: pointer;
+  margin-top:20px;
 
+  box-shadow:
 
-}
-
-
-
-hr {
-
-
-    border: none;
-
-
-    border-top: 1px solid #ddd;
-
-
-    margin: 15px 0;
-
+    0 8px 15px rgba(91,141,239,0.3);
 
 }
 
 
+/* 戻るボタン */
+.back-button {
 
-/* チャレンジ開始ボタン */
+  background:white;
 
-#startButton {
+  color:#555;
 
-    width: 100%;
-
-    height: 90px;
-
-    margin: 35px auto;
-
-    display: block;
-
-    border: none;
-
-    border-radius: 25px;
-
-    background: #e86a8d;
-
-    color: white;
-
-    font-size: 28px;
-
-    font-weight: bold;
-
-    box-shadow:
-    0 8px 18px rgba(0,0,0,0.18);
+  border:1px solid #ddd;
 
 }
 
 
+/* 結果 */
+.result {
 
-#startButton:active {
+  font-size:24px;
 
-    transform: scale(0.96);
+  font-weight:bold;
 
-}
-.choiceButton {
-    position: relative;
-    z-index: 9999;
-    pointer-events: auto;
-}
-.choiceButton.correct {
-
-    background: #7ac943;
+  color:#e75480;
 
 }
 
 
-.choiceButton.wrong {
+/* スマホ調整 */
+@media(max-width:430px){
 
-    background: #e86a8d;
+  h1{
+    font-size:25px;
+  }
 
-}
-
-
-.choiceButton:disabled {
-
-    cursor: default;
-
-    opacity: 0.9;
-
-}
-#retryButton{
-
-    width:80%;
-
-    max-width:300px;
-
-    padding:15px;
-
-    margin-top:25px;
-
-    font-size:18px;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-}
-#retryButton{
-
-    display:block;
-
-    width:80%;
-
-    max-width:300px;
-
-    margin:30px auto;
-
-    padding:15px;
-
-    font-size:18px;
-
-    border-radius:12px;
+  .korean-word{
+    font-size:30px;
+  }
 
 }
