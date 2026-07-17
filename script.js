@@ -219,44 +219,50 @@ function checkAnswer(choice,button){
             showQuestion();
 
 
-        }else{
+       }else{
 
 
-            questionText.innerHTML =
-            "終了！";
+    questionText.innerHTML =
+    "終了！";
 
 
-            choicesBox.innerHTML="";
+    choicesBox.innerHTML="";
 
 
-            resultText.innerHTML =
-            "あなたの得点は "+
-            score+
-            " / 10 点でした✨";
+    resultText.innerHTML =
+    "あなたの得点は "+
+    score+
+    " / 10 点でした✨";
 
 
-            nextArea.innerHTML="";
+    nextArea.innerHTML="";
 
-        }
+
+    let retry =
+    document.createElement("button");
+
+
+    retry.innerHTML =
+    "もう一度挑戦する";
+
+
+    retry.onclick=function(){
+
+        score = 0;
+        currentQuestion = 0;
+        answered = false;
+
+
+        questions =
+        shuffle(questions);
+
+
+        showQuestion();
 
 
     };
 
 
-    nextArea.appendChild(next);
-
-
-}
-
-
-
-
-
-// シャッフル
-function shuffle(array){
-
-    return array.sort(
-        ()=>Math.random()-0.5
-    );
+    nextArea.appendChild(retry);
 
 }
