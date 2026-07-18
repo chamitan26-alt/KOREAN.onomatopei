@@ -1061,3 +1061,14 @@ h1 {
     font-size:14px;
 
 }
+h1 {
+
+    font-size:22px !important;
+
+    line-height:1.4;
+
+    margin:8px 0 15px !important;
+
+    letter-spacing:1px;
+
+}
