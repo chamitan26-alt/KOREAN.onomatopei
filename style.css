@@ -660,11 +660,9 @@ h1 {
 
 #homeButton {
 
-    position: absolute;
+    top: 10px;
 
-    top: 15px;
-
-    left: 15px;
+    left: 10px;
 
     width: auto;
 
