@@ -166,9 +166,6 @@ choices.forEach(choice => {
 });
 
 
-}
-
-
 
 
 // 発音ボタン
