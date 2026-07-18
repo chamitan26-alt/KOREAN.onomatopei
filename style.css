@@ -743,3 +743,35 @@ h1 {
 
 
 }
+/* 次の問題へエリア中央配置 */
+
+#nextArea {
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+
+/* 次の問題へボタン */
+
+#nextButton {
+
+    display:block;
+
+    width:90%;
+
+    margin:25px auto 0;
+
+    padding:16px;
+
+    border-radius:30px;
+
+    border:none;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
