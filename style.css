@@ -981,3 +981,28 @@ h1 {
     font-size:11px;
 
 }
+/* 小さい戻るボタン */
+
+#homeButton {
+
+    width:auto !important;
+
+    padding:4px 10px !important;
+
+    font-size:11px !important;
+
+    border-radius:15px;
+
+    margin:0 0 5px auto !important;
+
+    display:block;
+
+    background:white;
+
+    color:#98727d;
+
+    box-shadow:
+
+    0 2px 8px rgba(0,0,0,0.08);
+
+}
