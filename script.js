@@ -25,7 +25,9 @@ const homeButton = document.getElementById("homeButton");
 
 
 
+// ======================
 // データ読み込み
+// ======================
 
 fetch("questions.json")
 
@@ -46,7 +48,9 @@ fetch("questions.json")
 
 
 
+// ======================
 // スタート
+// ======================
 
 startButton.onclick = function(){
 
@@ -61,10 +65,12 @@ startButton.onclick = function(){
 
 
 
+
+// ======================
 // クイズ開始
+// ======================
 
 function startQuiz(){
-
 
     quizQuestions = [...questions]
 
@@ -73,27 +79,26 @@ function startQuiz(){
     .slice(0,10);
 
 
-
     currentQuestion = 0;
 
     score = 0;
-
 
 
     scoreText.innerHTML =
     "現在の得点：0 / 10";
 
 
-
     showQuestion();
-
 
 }
 
 
 
 
+
+// ======================
 // 問題表示
+// ======================
 
 function showQuestion(){
 
@@ -107,6 +112,8 @@ function showQuestion(){
 
     nextButton.style.display = "none";
 
+
+    choicesArea.innerHTML = "";
 
 
     let q = quizQuestions[currentQuestion];
@@ -129,46 +136,67 @@ function showQuestion(){
 
 
 
-    choicesArea.innerHTML = "";
+
+
+    // ★空白除去して4つだけ表示
+
+    let choices = q.choices
+
+    .filter(choice =>
+
+        choice && choice.trim() !== ""
+
+    )
+
+    .slice(0,4);
 
 
 
-    let choices = [...q.choices];
-
+    // シャッフル
 
     choices.sort(() => Math.random() - 0.5);
 
 
-choices.forEach(choice => {
-
-    // 空データを無視
-    if(choice === "" || choice === null || choice === undefined){
-        return;
-    }
-
-
-    let button = document.createElement("button");
-
-
-    button.textContent = choice;
-
-
-    button.onclick = function(){
-
-        checkAnswer(choice,q);
-
-    };
-
-
-    choicesArea.appendChild(button);
-
-
-});
 
 
 
+    choices.forEach(choice => {
 
-// 発音ボタン
+
+        let button = document.createElement("button");
+
+
+        button.textContent = choice;
+
+
+
+        button.onclick = function(){
+
+
+            checkAnswer(choice,q);
+
+
+        };
+
+
+        choicesArea.appendChild(button);
+
+
+
+    });
+
+
+}
+
+
+
+
+
+
+
+// ======================
+// 発音
+// ======================
 
 speakButton.onclick = function(){
 
@@ -192,7 +220,16 @@ speakButton.onclick = function(){
 
 
 };
+
+
+
+
+
+
+
+// ======================
 // 答え確認
+// ======================
 
 function checkAnswer(choice,q){
 
@@ -201,25 +238,45 @@ function checkAnswer(choice,q){
 
 
     answered = true;
-    const buttons = document.querySelectorAll("#choices button");
+
+
+
+    const buttons =
+
+    document.querySelectorAll("#choices button");
+
+
 
     buttons.forEach(button => {
 
-        if(button.innerHTML === q.answer){
-
-            button.classList.add("correct");
-
-        }
-
-        if(button.innerHTML === choice && choice !== q.answer){
-
-            button.classList.add("wrong");
-
-        }
 
         button.disabled = true;
 
+
+
+        if(button.textContent === q.answer){
+
+
+            button.classList.add("correct");
+
+
+        }
+
+
+        if(button.textContent === choice
+
+        && choice !== q.answer){
+
+
+            button.classList.add("wrong");
+
+
+        }
+
+
     });
+
+
 
 
     if(choice === q.answer){
@@ -233,9 +290,11 @@ function checkAnswer(choice,q){
         "現在の得点：" + score + " / 10";
 
 
+
         resultText.innerHTML =
 
         "⭕ 正解！";
+
 
 
     }else{
@@ -266,7 +325,13 @@ function checkAnswer(choice,q){
 
 
 
-// 次へボタン
+
+
+
+
+// ======================
+// 次の問題
+// ======================
 
 nextButton.onclick = function(){
 
@@ -281,13 +346,11 @@ nextButton.onclick = function(){
         showQuestion();
 
 
-
     }else{
 
 
-        // 結果画面
-
         quizArea.innerHTML = `
+
 
         <h2>🎉終了！</h2>
 
@@ -299,6 +362,7 @@ nextButton.onclick = function(){
         </p>
 
 
+
         <button id="retryButton">
 
         もう一度挑戦する
@@ -306,7 +370,9 @@ nextButton.onclick = function(){
         </button>
 
 
+
         <br><br>
+
 
 
         <button id="resultHomeButton">
@@ -316,39 +382,26 @@ nextButton.onclick = function(){
         </button>
 
 
+
         `;
 
 
 
-        // もう一度挑戦
+        document.getElementById("retryButton")
 
-        document.getElementById("retryButton").onclick = function(){
-
+        .onclick=function(){
 
             location.reload();
-
 
         };
 
 
 
-        // 結果画面からトップへ
+        document.getElementById("resultHomeButton")
 
-        document.getElementById("resultHomeButton").onclick = function(){
+        .onclick=function(){
 
-
-            quizArea.style.display = "none";
-
-
-            startArea.style.display = "block";
-
-
-            currentQuestion = 0;
-
-            score = 0;
-
-            answered = false;
-
+            location.reload();
 
         };
 
@@ -362,7 +415,11 @@ nextButton.onclick = function(){
 
 
 
-// 途中でトップへ戻るボタン
+
+
+// ======================
+// 途中で戻る
+// ======================
 
 homeButton.onclick = function(){
 
@@ -378,34 +435,26 @@ homeButton.onclick = function(){
     if(result){
 
 
-        quizArea.style.display = "none";
+        quizArea.style.display="none";
 
 
-        startArea.style.display = "block";
+        startArea.style.display="block";
 
 
+        currentQuestion=0;
 
-        // 初期化
+        score=0;
 
-        currentQuestion = 0;
-
-        score = 0;
-
-        answered = false;
-
-        currentKoreanWord = "";
+        answered=false;
 
 
+        questionText.innerHTML="";
 
-        // 表示クリア
+        choicesArea.innerHTML="";
 
-        questionText.innerHTML = "";
+        resultText.innerHTML="";
 
-        choicesArea.innerHTML = "";
-
-        resultText.innerHTML = "";
-
-        explanationText.innerHTML = "";
+        explanationText.innerHTML="";
 
 
     }
