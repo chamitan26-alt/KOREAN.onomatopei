@@ -579,43 +579,29 @@ h1 {
 
 #homeButton {
 
-
     display:block !important;
 
+    width:auto;
 
-    width:90%;
+    margin:10px 0 20px;
 
+    padding:6px 12px;
 
-    margin:30px auto 10px;
+    border-radius:20px;
 
-
-    padding:12px;
-
-
-    border-radius:25px;
-
-
-    border:
-
-    1px solid #efd9df;
-
+    border:1px solid #efd9df;
 
     background:white;
 
-
     color:#98727d;
 
-
-    font-size:15px;
-
+    font-size:12px;
 
     font-weight:bold;
 
-
     box-shadow:
 
-
-    0 5px 15px rgba(0,0,0,0.08);
+    0 3px 8px rgba(0,0,0,0.08);
 
 
 }
