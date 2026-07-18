@@ -489,3 +489,35 @@ h1 {
 
 
 }
+/* トップへ戻るボタンを常に表示 */
+
+#homeButton {
+
+    display: block !important;
+
+    position: relative;
+
+    z-index: 10;
+
+    width: 90%;
+
+    margin: 10px auto 20px;
+
+    padding: 12px;
+
+    border-radius: 25px;
+
+    border: none;
+
+    background: white;
+
+    color: #555;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.1);
+
+}
