@@ -157,7 +157,7 @@ nextButton.onclick = function() {
             <p>得点：${score} / 10</p>
             <p style="color: #4a5568; padding: 10px; font-weight: bold; font-size: 1.1em;">
                 🐶「수고하셨습니다! <br>
-                （スゴハショッスンニダ！お疲れ様でした！）」
+                （スゴハショッスmニダ！お疲れ様でした！）」
             </p>
             <br>
             <button id="retryButton">もう一度挑戦する</button>
