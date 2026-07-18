@@ -671,3 +671,36 @@ h1 {
 
 
 }
+/* 左上の小さい戻るボタン */
+
+#homeButton {
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 15px;
+
+    width: auto;
+
+    margin: 0;
+
+    padding: 8px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    background: rgba(255,255,255,0.9);
+
+    color:#98727d;
+
+    border:1px solid #efd9df;
+
+    box-shadow:
+
+    0 3px 10px rgba(0,0,0,0.08);
+
+    z-index:100;
+
+}
