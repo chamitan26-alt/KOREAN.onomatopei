@@ -1072,3 +1072,8 @@ h1 {
     letter-spacing:1px;
 
 }
+/* 空の選択肢ボタンを消す */
+
+#choices button:empty {
+    display:none !important;
+}
