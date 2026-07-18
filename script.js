@@ -202,7 +202,25 @@ function checkAnswer(choice,q){
 
 
     answered = true;
+    const buttons = document.querySelectorAll("#choices button");
 
+    buttons.forEach(button => {
+
+        if(button.innerHTML === q.answer){
+
+            button.classList.add("correct");
+
+        }
+
+        if(button.innerHTML === choice && choice !== q.answer){
+
+            button.classList.add("wrong");
+
+        }
+
+        button.disabled = true;
+
+    });
 
 
     if(choice === q.answer){
