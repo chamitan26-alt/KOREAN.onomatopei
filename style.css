@@ -1006,3 +1006,22 @@ h1 {
     0 2px 8px rgba(0,0,0,0.08);
 
 }
+/* 戻るボタンをシンプル表示 */
+
+#homeButton {
+
+    background:none !important;
+
+    border:none !important;
+
+    box-shadow:none !important;
+
+    padding:2px 0 !important;
+
+    width:auto !important;
+
+    font-size:12px !important;
+
+    color:#98727d;
+
+}
