@@ -139,29 +139,31 @@ function showQuestion(){
     choices.sort(() => Math.random() - 0.5);
 
 
+choices.forEach(choice => {
 
-    choices.forEach(choice => {
-
-
-        let button = document.createElement("button");
-
-
-        button.innerHTML = choice;
+    // 空データを無視
+    if(choice === "" || choice === null || choice === undefined){
+        return;
+    }
 
 
-        button.onclick = function(){
+    let button = document.createElement("button");
 
 
-            checkAnswer(choice,q);
+    button.textContent = choice;
 
 
-        };
+    button.onclick = function(){
+
+        checkAnswer(choice,q);
+
+    };
 
 
-        choicesArea.appendChild(button);
+    choicesArea.appendChild(button);
 
 
-    });
+});
 
 
 }
