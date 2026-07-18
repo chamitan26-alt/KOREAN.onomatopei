@@ -521,3 +521,225 @@ h1 {
     0 5px 15px rgba(0,0,0,0.1);
 
 }
+/* =========================
+   韓国カフェ風デザイン
+   Cafe Style
+========================= */
+
+
+/* 背景 */
+body {
+
+    background:
+    linear-gradient(
+        180deg,
+        #fff8f5 0%,
+        #fff0f5 50%,
+        #f8f6ff 100%
+    );
+
+}
+
+
+/* タイトル */
+
+h1 {
+
+    color:#8b5e6b;
+
+    font-family:
+    "Hiragino Mincho ProN",
+    "Yu Mincho",
+    serif;
+
+    letter-spacing:2px;
+
+    text-shadow:
+    0 2px 5px rgba(0,0,0,0.08);
+
+}
+
+
+
+/* サブタイトル */
+
+.subtitle {
+
+    color:#b58b95;
+
+    font-size:16px;
+
+    letter-spacing:3px;
+
+}
+
+
+
+/* トップカード */
+
+#startArea {
+
+    background:
+    rgba(255,255,255,0.85);
+
+    border-radius:30px;
+
+    border:
+    1px solid #f3d7df;
+
+    box-shadow:
+
+    0 15px 35px rgba(180,120,140,0.15);
+
+}
+
+
+
+/* 説明文 */
+
+#startArea p {
+
+    color:#7d646b;
+
+    font-size:17px;
+
+}
+
+
+
+
+
+/* スタートボタン */
+
+#startButton {
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #f7a8bd,
+        #d99be8
+    );
+
+
+    border-radius:40px;
+
+
+    box-shadow:
+
+    0 10px 25px rgba(220,150,180,0.35);
+
+
+    letter-spacing:1px;
+
+
+    transition:.3s;
+
+}
+
+
+#startButton:active {
+
+    transform:
+
+    translateY(3px);
+
+    box-shadow:
+
+    0 5px 10px rgba(220,150,180,0.25);
+
+}
+
+
+
+/* クイズカード */
+
+#question {
+
+    border-radius:30px;
+
+    border:
+
+    1px solid #f2dce3;
+
+
+}
+
+
+
+/* 韓国語文字 */
+
+#question {
+
+    color:#6b5360;
+
+}
+
+
+
+
+
+/* 選択肢 */
+
+#choices button {
+
+
+    background:#fff;
+
+
+    border:
+
+    1px solid #f3dce4;
+
+
+    color:#66545c;
+
+
+}
+
+
+
+#choices button:hover {
+
+
+    background:#fff2f7;
+
+
+}
+
+
+
+
+/* 次へボタン */
+
+#nextButton {
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #d8a7ff,
+        #9fc8ff
+    );
+
+
+}
+
+
+
+/* 戻るボタン */
+
+#homeButton {
+
+
+    border:
+
+    1px solid #efd9df;
+
+
+    color:#98727d;
+
+
+}
