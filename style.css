@@ -703,3 +703,37 @@ h1 {
     z-index:100;
 
 }
+/* 正解ボタン */
+
+.correct {
+
+    background:
+    linear-gradient(
+        135deg,
+        #d9f7df,
+        #c8f0d1
+    ) !important;
+
+    border:1px solid #a9ddb5 !important;
+
+    color:#3d7a4a !important;
+
+}
+
+
+/* 不正解ボタン */
+
+.wrong {
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffe1e8,
+        #ffd0db
+    ) !important;
+
+    border:1px solid #f2aabd !important;
+
+    color:#a44b62 !important;
+
+}
