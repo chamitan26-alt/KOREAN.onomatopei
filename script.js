@@ -20,6 +20,26 @@ const scoreText = document.getElementById("score");
 const homeButton = document.getElementById("homeButton");
 
 // ======================
+// 🐶 シムさんの応援フレーズ設定
+// ======================
+const simCorrectPhrases = [
+    "🐶「대박（テバッ）！いいリズムだね！最高のダンスだよ！」",
+    "🐶「역시（ヨクシ）！完璧！今の、キリングパート級だったよ！」",
+    "🐶「짱이야（チャンイヤ）！ノリノリでこの調子で行こう！」"
+];
+
+const simWrongPhrases = [
+    "🐶「괜찮아, 괜찮아（ケンチャナ、ケンチャナ）！次はきっとできるよ！」",
+    "🐶「ドンマイ！ちょっとリズムがズレただけ！다시 한번（タシ ハンボン）！」",
+    "🐶「惜しい！深呼吸して、次のイントロに集中だよ！」"
+];
+
+const simEndPhrases = [
+    "🐶「수고했어（スゴヘッソ）！頑張る姿、最高にカッコよかったよ！」",
+    "🐶「最後までやりきったね！축하해（チュカヘ）🎉」"
+];
+
+// ======================
 // データ読み込み
 // ======================
 fetch("questions.json")
@@ -61,7 +81,7 @@ function startQuiz() {
 function showQuestion() {
     answered = false;
 
-    // 中身を空にするのと同時に、要素自体を非表示（display="none"）にする
+    // 要素をしっかり非表示・初期化する
     resultText.innerHTML = "";
     resultText.style.display = "none";
 
@@ -135,17 +155,22 @@ function checkAnswer(choice, q) {
         }
     });
 
+    // シムさんのセリフをランダムで選ぶ
+    let simPhrase = "";
+
     if (choice === q.answer) {
         score++;
         scoreText.innerHTML = `現在の得点：${score} / 10`;
-        resultText.innerHTML = "⭕ 正解！";
+        simPhrase = simCorrectPhrases[Math.floor(Math.random() * simCorrectPhrases.length)];
+        resultText.innerHTML = `⭕ 正解！<br><br><span style="color: #4a5568; font-size: 0.95em;">${simPhrase}</span>`;
     } else {
-        resultText.innerHTML = `❌ 不正解<br>正解：${q.answer}`;
+        simPhrase = simWrongPhrases[Math.floor(Math.random() * simWrongPhrases.length)];
+        resultText.innerHTML = `❌ 不正解<br>正解：${q.answer}<br><br><span style="color: #4a5568; font-size: 0.95em;">${simPhrase}</span>`;
     }
 
     explanationText.innerHTML = `📖 解説<br>${q.explanation || "解説なし"}`;
 
-    // 答え合わせが終わったタイミングで枠（シェイプ）を表示させる
+    // 枠を表示させる
     resultText.style.display = "block";
     explanationText.style.display = "block";
     nextButton.style.display = "block";
@@ -160,10 +185,15 @@ nextButton.onclick = function() {
     if (currentQuestion < quizQuestions.length) {
         showQuestion();
     } else {
+        // 終了時のシムさんのセリフをランダムで選ぶ
+        const simEndPhrase = simEndPhrases[Math.floor(Math.random() * simEndPhrases.length)];
+
         // クイズエリアをリライト
         quizArea.innerHTML = `
             <h2>🎉終了！</h2>
             <p>得点：${score} / 10</p>
+            <p style="color: #4a5568; padding: 10px; font-weight: bold;">${simEndPhrase}</p>
+            <br>
             <button id="retryButton">もう一度挑戦する</button>
             <br><br>
             <button id="resultHomeButton">トップへ戻る</button>
