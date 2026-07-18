@@ -62,15 +62,19 @@ body {
 
 h1 {
 
-    margin-top:35px;
+    color:#8b5e6b;
 
-    font-size:26px;
-
-    line-height:1.5;
-
-    color:#4267b2;
+    font-family:
+    "Hiragino Sans",
+    "Noto Sans JP",
+    sans-serif;
 
     font-weight:700;
+
+    letter-spacing:1px;
+
+    text-shadow:
+    0 2px 8px rgba(180,120,140,0.15);
 
 }
 
