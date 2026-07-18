@@ -66,15 +66,16 @@ h1 {
 
     font-family:
     "Hiragino Sans",
+    "Yu Gothic",
     "Noto Sans JP",
     sans-serif;
 
-    font-weight:700;
+    font-weight:800;
 
     letter-spacing:1px;
 
     text-shadow:
-    0 2px 8px rgba(180,120,140,0.15);
+    0 2px 5px rgba(0,0,0,0.08);
 
 }
 
@@ -552,11 +553,14 @@ h1 {
     color:#8b5e6b;
 
     font-family:
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    serif;
+    "Hiragino Sans",
+    "Yu Gothic",
+    "Noto Sans JP",
+    sans-serif;
 
-    letter-spacing:2px;
+    font-weight:700;
+
+    letter-spacing:1px;
 
     text-shadow:
     0 2px 5px rgba(0,0,0,0.08);
