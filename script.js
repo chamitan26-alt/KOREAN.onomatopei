@@ -20,26 +20,6 @@ const scoreText = document.getElementById("score");
 const homeButton = document.getElementById("homeButton");
 
 // ======================
-// 🐶 シムさんの応援フレーズ設定
-// ======================
-const simCorrectPhrases = [
-    "🐶「대박（テバッ）！いいリズムだね！最高のダンスだよ！」",
-    "🐶「역시（ヨクシ）！完璧！今の、キリングパート級だったよ！」",
-    "🐶「짱이야（チャンイヤ）！ノリノリでこの調子で行こう！」"
-];
-
-const simWrongPhrases = [
-    "🐶「괜찮아, 괜찮아（ケンチャナ、ケンチャナ）！次はきっとできるよ！」",
-    "🐶「ドンマイ！ちょっとリズムがズレただけ！다시 한번（タシ ハンボン）！」",
-    "🐶「惜しい！深呼吸して、次のイントロに集中だよ！」"
-];
-
-const simEndPhrases = [
-    "🐶「수고했어（スゴヘッソ）！頑張る姿、最高にカッコよかったよ！」",
-    "🐶「最後までやりきったね！축하해（チュカヘ）🎉」"
-];
-
-// ======================
 // データ読み込み
 // ======================
 fetch("questions.json")
@@ -64,7 +44,6 @@ startButton.onclick = function() {
 // クイズ開始
 // ======================
 function startQuiz() {
-    // 全問題からランダムに10問ピックアップ
     quizQuestions = [...questions]
         .sort(() => Math.random() - 0.5)
         .slice(0, 10);
@@ -81,7 +60,6 @@ function startQuiz() {
 function showQuestion() {
     answered = false;
 
-    // 要素をしっかり非表示・初期化する
     resultText.innerHTML = "";
     resultText.style.display = "none";
 
@@ -94,19 +72,14 @@ function showQuestion() {
     let q = quizQuestions[currentQuestion];
 
     questionText.innerHTML = `${currentQuestion + 1}問目 / 10問<br><br>${q.question}`;
-
-    // 「 の意味」の手前を韓国語単語として抽出
     currentKoreanWord = q.question.split(" の意味")[0];
 
-    // 空白を除去
     let validChoices = q.choices.filter(choice => choice && choice.trim() !== "");
 
-    // 選択肢の中に正解がなければ強制的に追加（バグ対策）
     if (!validChoices.includes(q.answer)) {
         validChoices.push(q.answer);
     }
 
-    // 正解を含めた上でランダムに4つ抽出し、さらにシャッフル
     let finalChoices = validChoices.slice(0, 4);
     finalChoices.sort(() => Math.random() - 0.5);
 
@@ -126,7 +99,6 @@ function showQuestion() {
 speakButton.onclick = function() {
     if (!currentKoreanWord) return;
     
-    // 読み上げ中の音声を一度停止（連打対策）
     speechSynthesis.cancel();
 
     const speech = new SpeechSynthesisUtterance();
@@ -137,7 +109,7 @@ speakButton.onclick = function() {
 };
 
 // ======================
-// 答え確認
+// 答え確認（★シムさんの毎回のセリフを削除してシンプルに）
 // ======================
 function checkAnswer(choice, q) {
     if (answered) return;
@@ -155,29 +127,23 @@ function checkAnswer(choice, q) {
         }
     });
 
-    // シムさんのセリフをランダムで選ぶ
-    let simPhrase = "";
-
     if (choice === q.answer) {
         score++;
         scoreText.innerHTML = `現在の得点：${score} / 10`;
-        simPhrase = simCorrectPhrases[Math.floor(Math.random() * simCorrectPhrases.length)];
-        resultText.innerHTML = `⭕ 正解！<br><br><span style="color: #4a5568; font-size: 0.95em;">${simPhrase}</span>`;
+        resultText.innerHTML = "⭕ 正解！";
     } else {
-        simPhrase = simWrongPhrases[Math.floor(Math.random() * simWrongPhrases.length)];
-        resultText.innerHTML = `❌ 不正解<br>正解：${q.answer}<br><br><span style="color: #4a5568; font-size: 0.95em;">${simPhrase}</span>`;
+        resultText.innerHTML = `❌ 不正解<br>正解：${q.answer}`;
     }
 
     explanationText.innerHTML = `📖 解説<br>${q.explanation || "解説なし"}`;
 
-    // 枠を表示させる
     resultText.style.display = "block";
     explanationText.style.display = "block";
     nextButton.style.display = "block";
 }
 
 // ======================
-// 次の問題、または終了画面
+// 次の問題、または終了画面（★最後にシムさんが一言！）
 // ======================
 nextButton.onclick = function() {
     currentQuestion++;
@@ -185,14 +151,13 @@ nextButton.onclick = function() {
     if (currentQuestion < quizQuestions.length) {
         showQuestion();
     } else {
-        // 終了時のシムさんのセリフをランダムで選ぶ
-        const simEndPhrase = simEndPhrases[Math.floor(Math.random() * simEndPhrases.length)];
-
-        // クイズエリアをリライト
+        // クイズエリアをリライト（最後にシムさんからお疲れ様でしたの挨拶）
         quizArea.innerHTML = `
             <h2>🎉終了！</h2>
             <p>得点：${score} / 10</p>
-            <p style="color: #4a5568; padding: 10px; font-weight: bold;">${simEndPhrase}</p>
+            <p style="color: #4a5568; padding: 10px; font-weight: bold; font-size: 1.1em;">
+                🐶「수고하셨습니다!（スゴハショッスンニダ！お疲れ様でした！）」
+            </p>
             <br>
             <button id="retryButton">もう一度挑戦する</button>
             <br><br>
@@ -214,7 +179,6 @@ homeButton.onclick = function() {
         quizArea.style.display = "none";
         startArea.style.display = "block";
         
-        // 初期化
         currentQuestion = 0;
         score = 0;
         answered = false;
