@@ -1,11 +1,13 @@
 /* =========================
-   シムさんと楽しく学ぶ韓国語
-   App Design v16
+   シムさんと学ぶ韓国語
+   Cafe App Design
 ========================= */
 
 
+/* 全体 */
+
 * {
-    box-sizing: border-box;
+    box-sizing:border-box;
 }
 
 
@@ -20,24 +22,27 @@ body {
     BlinkMacSystemFont,
     "Helvetica Neue",
     "Hiragino Sans",
-    Arial,
+    "Yu Gothic",
     sans-serif;
 
 
     background:
     linear-gradient(
         180deg,
-        #fff5fa 0%,
-        #f3f8ff 100%
+        #fff8f5 0%,
+        #fff0f5 50%,
+        #f7f8ff 100%
     );
 
 
-    color:#333;
+    color:#555;
 
 }
 
 
 
+
+/* メイン */
 
 .container {
 
@@ -49,7 +54,9 @@ body {
 
     margin:auto;
 
-    padding:25px 20px 40px;
+    padding:
+
+    25px 20px 40px;
 
     text-align:center;
 
@@ -58,86 +65,132 @@ body {
 
 
 
+
 /* タイトル */
 
 h1 {
 
+
     color:#8b5e6b;
 
+
     font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
     "Hiragino Sans",
     "Yu Gothic",
-    "Noto Sans JP",
     sans-serif;
+
+
+    font-size:26px;
+
 
     font-weight:800;
 
+
     letter-spacing:1px;
 
+
     text-shadow:
+
     0 2px 5px rgba(0,0,0,0.08);
+
 
 }
 
 
 
+
+
+/* サブタイトル */
 
 .subtitle {
 
-    margin-top:5px;
 
-    color:#777;
+    margin-top:8px;
 
-    font-size:15px;
 
-    letter-spacing:1px;
+    color:#b58b95;
+
+
+    font-size:16px;
+
+
+    letter-spacing:3px;
+
 
 }
 
 
 
 
+/* トップ画面カード */
 
-
-/* トップ画面 */
 
 #startArea {
 
+
     margin-top:45px;
 
-    background:white;
 
-    padding:35px 25px;
+    background:
 
-    border-radius:25px;
+    rgba(255,255,255,0.9);
+
+
+    padding:
+
+    35px 25px;
+
+
+    border-radius:30px;
+
+
+    border:
+
+    1px solid #f3d7df;
 
 
     box-shadow:
 
-    0 10px 25px rgba(0,0,0,0.08);
+    0 15px 35px
+
+    rgba(180,120,140,0.15);
+
 
 }
 
 
+
+
+
+/* キャッチコピー */
 
 
 #startArea p {
 
-    font-size:18px;
 
-    color:#555;
+    color:#7d646b;
 
-    line-height:2;
+
+    font-size:17px;
+
+
+    line-height:1.8;
+
+
+    font-weight:500;
+
 
 }
-
-
 
 
 
 
 
 /* スタートボタン */
+
 
 #startButton {
 
@@ -154,15 +207,19 @@ h1 {
     border:none;
 
 
-    border-radius:35px;
+    border-radius:40px;
 
 
     background:
 
     linear-gradient(
-    90deg,
-    #ff8fb1,
-    #8aa8ff
+
+    135deg,
+
+    #f7a8bd,
+
+    #d99be8
+
     );
 
 
@@ -175,9 +232,18 @@ h1 {
     font-weight:bold;
 
 
+    letter-spacing:1px;
+
+
     box-shadow:
 
-    0 8px 15px rgba(255,143,177,0.35);
+
+    0 10px 25px
+
+    rgba(220,150,180,0.35);
+
+
+    transition:.2s;
 
 
 }
@@ -185,49 +251,34 @@ h1 {
 
 
 
+#startButton:active {
 
 
-/* クイズ画面 */
+    transform:
+
+    translateY(3px);
+
+
+}
+
+
+
+
+/* クイズエリア */
+
 
 #quizArea {
 
+
     margin-top:20px;
 
-}
-
-
-
-
-
-.homeButton {
-
-
-    border:none;
-
-    background:white;
-
-    padding:10px 18px;
-
-    border-radius:20px;
-
-
-    color:#666;
-
-    font-size:14px;
-
-
-    box-shadow:
-
-    0 3px 10px rgba(0,0,0,0.08);
-
-
-    margin-bottom:20px;
-
 
 }
 
 
 
+
+/* 得点 */
 
 
 .score {
@@ -251,8 +302,14 @@ h1 {
     margin-bottom:20px;
 
 
-}
+    box-shadow:
 
+    0 5px 15px
+
+    rgba(0,0,0,0.05);
+
+
+}
 
 
 
@@ -270,7 +327,12 @@ h1 {
     padding:30px 20px;
 
 
-    border-radius:25px;
+    border-radius:30px;
+
+
+    border:
+
+    1px solid #f2dce3;
 
 
     font-size:22px;
@@ -282,41 +344,40 @@ h1 {
     line-height:1.6;
 
 
+    color:#6b5360;
+
+
     box-shadow:
 
-    0 10px 25px rgba(0,0,0,0.08);
+
+    0 10px 25px
+
+    rgba(0,0,0,0.08);
 
 
-}
-
-
-
-
-
-
-/* 発音ボタン */
-
+}/* 発音ボタン */
 
 #speakButton {
 
-
     margin:20px auto;
-
 
     padding:12px 25px;
 
-
     border-radius:30px;
 
-
-    border:1px solid #ddd;
-
+    border:1px solid #efd9df;
 
     background:white;
 
+    color:#98727d;
 
     font-size:15px;
 
+    font-weight:bold;
+
+    box-shadow:
+
+    0 5px 12px rgba(0,0,0,0.05);
 
 }
 
@@ -325,7 +386,6 @@ h1 {
 
 
 /* 選択肢 */
-
 
 #choices button {
 
@@ -339,13 +399,18 @@ h1 {
     margin:8px 0;
 
 
-    border:none;
+    border-radius:20px;
 
 
-    border-radius:18px;
+    border:
+
+    1px solid #f3dce4;
 
 
     background:white;
+
+
+    color:#66545c;
 
 
     font-size:16px;
@@ -355,6 +420,7 @@ h1 {
 
 
     box-shadow:
+
 
     0 5px 15px rgba(0,0,0,0.08);
 
@@ -380,8 +446,7 @@ h1 {
 
 
 
-
-/* 結果 */
+/* 正解・不正解 */
 
 #result {
 
@@ -403,8 +468,6 @@ h1 {
 
 
 
-
-
 /* 解説 */
 
 #explanation {
@@ -416,10 +479,15 @@ h1 {
     padding:20px;
 
 
-    background:#fff;
+    background:white;
 
 
     border-radius:20px;
+
+
+    border:
+
+    1px solid #f3dce4;
 
 
     line-height:1.8;
@@ -428,25 +496,43 @@ h1 {
     font-size:15px;
 
 
+    color:#66545c;
+
+
 }
 
 
 
 
+/* 次の問題へ */
+
+#nextArea {
 
 
-/* 次へ */
+    width:100%;
+
+
+    text-align:center;
+
+
+}
+
+
+
 
 #nextButton {
+
+
+    display:block;
 
 
     width:90%;
 
 
+    margin:25px auto 0;
+
+
     padding:16px;
-
-
-    margin-top:25px auto;
 
 
     border:none;
@@ -455,7 +541,18 @@ h1 {
     border-radius:30px;
 
 
-    background:#4267b2;
+    background:
+
+
+    linear-gradient(
+
+    135deg,
+
+    #d8a7ff,
+
+    #9fc8ff
+
+    );
 
 
     color:white;
@@ -467,9 +564,87 @@ h1 {
     font-weight:bold;
 
 
+    box-shadow:
+
+
+    0 8px 18px rgba(150,130,220,0.25);
+
+
 }
 
 
+
+
+
+/* トップへ戻るボタン */
+
+#homeButton {
+
+
+    display:block !important;
+
+
+    width:90%;
+
+
+    margin:30px auto 10px;
+
+
+    padding:12px;
+
+
+    border-radius:25px;
+
+
+    border:
+
+    1px solid #efd9df;
+
+
+    background:white;
+
+
+    color:#98727d;
+
+
+    font-size:15px;
+
+
+    font-weight:bold;
+
+
+    box-shadow:
+
+
+    0 5px 15px rgba(0,0,0,0.08);
+
+
+}
+
+
+
+
+/* 結果画面 */
+
+.result-card {
+
+
+    background:white;
+
+
+    padding:35px 20px;
+
+
+    border-radius:30px;
+
+
+    box-shadow:
+
+
+    0 10px 25px rgba(0,0,0,0.08);
+
+
+}
 
 
 
@@ -479,335 +654,20 @@ h1 {
 @media(max-width:430px){
 
 
-    h1{
+    h1 {
+
 
         font-size:23px;
 
     }
 
 
-    #question{
+    #question {
+
 
         font-size:20px;
 
     }
 
-
-}
-/* トップへ戻るボタンを常に表示 */
-
-#homeButton {
-
-    display: block !important;
-
-    position: relative;
-
-    z-index: 10;
-
-    width: 90%;
-
-    margin: 10px auto 20px;
-
-    padding: 12px;
-
-    border-radius: 25px;
-
-    border: none;
-
-    background: white;
-
-    color: #555;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    box-shadow:
-    0 5px 15px rgba(0,0,0,0.1);
-
-}
-/* =========================
-   韓国カフェ風デザイン
-   Cafe Style
-========================= */
-
-
-/* 背景 */
-body {
-
-    background:
-    linear-gradient(
-        180deg,
-        #fff8f5 0%,
-        #fff0f5 50%,
-        #f8f6ff 100%
-    );
-
-}
-
-
-/* タイトル */
-
-h1 {
-
-    color:#8b5e6b;
-
-    font-family:
-    "Hiragino Sans",
-    "Yu Gothic",
-    "Noto Sans JP",
-    sans-serif;
-
-    font-weight:700;
-
-    letter-spacing:1px;
-
-    text-shadow:
-    0 2px 5px rgba(0,0,0,0.08);
-
-}
-
-
-
-/* サブタイトル */
-
-.subtitle {
-
-    color:#b58b95;
-
-    font-size:16px;
-
-    letter-spacing:3px;
-
-}
-
-
-
-/* トップカード */
-
-#startArea {
-
-    background:
-    rgba(255,255,255,0.85);
-
-    border-radius:30px;
-
-    border:
-    1px solid #f3d7df;
-
-    box-shadow:
-
-    0 15px 35px rgba(180,120,140,0.15);
-
-}
-
-
-
-/* 説明文 */
-
-#startArea p {
-
-    color:#7d646b;
-
-    font-size:17px;
-
-}
-
-
-
-
-
-/* スタートボタン */
-
-#startButton {
-
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #f7a8bd,
-        #d99be8
-    );
-
-
-    border-radius:40px;
-
-
-    box-shadow:
-
-    0 10px 25px rgba(220,150,180,0.35);
-
-
-    letter-spacing:1px;
-
-
-    transition:.3s;
-
-}
-
-
-#startButton:active {
-
-    transform:
-
-    translateY(3px);
-
-    box-shadow:
-
-    0 5px 10px rgba(220,150,180,0.25);
-
-}
-
-
-
-/* クイズカード */
-
-#question {
-
-    border-radius:30px;
-
-    border:
-
-    1px solid #f2dce3;
-
-
-}
-
-
-
-/* 韓国語文字 */
-
-#question {
-
-    color:#6b5360;
-
-}
-
-
-
-
-
-/* 選択肢 */
-
-#choices button {
-
-
-    background:#fff;
-
-
-    border:
-
-    1px solid #f3dce4;
-
-
-    color:#66545c;
-
-
-}
-
-
-
-#choices button:hover {
-
-
-    background:#fff2f7;
-
-
-}
-
-
-
-
-/* 次へボタン */
-
-#nextButton {
-
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #d8a7ff,
-        #9fc8ff
-    );
-
-
-}
-
-
-
-/* 戻るボタン */
-
-#homeButton {
-
-
-    border:
-
-    1px solid #efd9df;
-
-
-    color:#98727d;
-
-
-}
-/* 次の問題へエリア中央配置 */
-
-#nextArea {
-
-    width:100%;
-
-    text-align:center;
-
-}
-
-
-/* 次の問題へボタン */
-
-#nextButton {
-
-    display:block;
-
-    width:90%;
-
-    margin:25px auto 0;
-
-    padding:16px;
-
-    border-radius:30px;
-
-    border:none;
-
-    font-size:17px;
-
-    font-weight:bold;
-
-}
-.catchcopy {
-
-    color:#7d646b;
-
-    font-size:17px;
-
-    line-height:1.8;
-
-    margin-bottom:20px;
-
-    font-weight:500;
-
-}
-/* タイトルをゴシック体に変更 */
-
-h1 {
-
-    font-family:
-    "Hiragino Sans",
-    "Yu Gothic",
-    "Noto Sans JP",
-    sans-serif !important;
-
-    font-weight:800 !important;
-
-    letter-spacing:1px;
 
 }
