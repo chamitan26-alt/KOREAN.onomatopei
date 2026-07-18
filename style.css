@@ -861,3 +861,123 @@ h1 {
     }
 
 }
+/* =========================
+   iPhone 1画面表示調整
+========================= */
+
+
+/* 全体の余白を減らす */
+
+.container {
+
+    padding:10px 15px 25px;
+
+}
+
+
+
+/* タイトルを小さく */
+
+h1 {
+
+    font-size:21px;
+
+    margin:5px 0;
+
+}
+
+
+
+/* サブタイトル */
+
+.subtitle {
+
+    font-size:13px;
+
+    margin:3px 0;
+
+}
+
+
+
+/* 得点 */
+
+.score {
+
+    padding:6px;
+
+    margin:8px 0;
+
+    font-size:13px;
+
+}
+
+
+
+/* 問題カード */
+
+#question {
+
+    padding:15px 10px;
+
+    font-size:18px;
+
+    margin-bottom:5px;
+
+}
+
+
+
+/* 発音ボタン */
+
+#speakButton {
+
+    margin:5px auto;
+
+    padding:7px 18px;
+
+    font-size:13px;
+
+}
+
+
+
+/* 選択肢 */
+
+#choices button {
+
+    padding:8px;
+
+    margin:4px 0;
+
+    min-height:38px;
+
+    font-size:14px;
+
+    border-radius:14px;
+
+}
+
+
+
+/* 次へ */
+
+#nextButton {
+
+    padding:10px;
+
+    margin-top:10px;
+
+}
+
+
+
+/* 戻る */
+
+#homeButton {
+
+    padding:4px 10px;
+
+    font-size:11px;
+
+}
