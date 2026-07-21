@@ -1,9 +1,20 @@
 {
-  "name": "韓国語って面白い！シムさんと楽しく学ぶ韓国語オノマトペ",
-  "short_name": "韓国語って面白い！",
-  "start_url": "./",
+  "name": "シムさんと学ぶ韓国語オノマトペクイズ",
+  "short_name": "韓国語オノマトペ",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff7f2",
-  "theme_color": "#f8b6c8",
-  "lang": "ja"
+  "background_color": "#FFF5F7",
+  "theme_color": "#FF6B8B",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
