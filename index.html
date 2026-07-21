@@ -1,169 +1,149 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-韓国語って面白い！シムさんと楽しく学ぶ韓国語オノマトペ
-</title>
+<title>シムさんと学ぶ 韓国語オノマトペクイズ</title>
 
-
-<link rel="stylesheet" href="style.css?v=22">
+<link rel="stylesheet" href="style.css?v=30">
 <link rel="manifest" href="manifest.json">
-
 </head>
 
 <body>
 
-
 <div class="container">
 
+<!-- ホーム画面 -->
+<div id="startArea">
 
 <h1>
 🌸 シムさんと学ぶ<br>
-  韓国語オノマトペクイズ
+韓国語オノマトペクイズ
 </h1>
-
-
-<div id="startArea">
 
 <p class="catchcopy">
 韓国語をもっと身近に♪<br>
 クイズ形式で楽しく覚えよう！
 </p>
 
-<button id="startButton">
-10問チャレンジ開始
+<img src="sim.png" class="simMain">
+
+<div class="speech">
+안녕하세요！<br>
+一緒に楽しく勉強しましょう！
+</div>
+
+<button id="startButton" class="mainButton">
+🐾 10問チャレンジ開始
+</button>
+
+<button id="practiceButton" class="subButton">
+🔊 発音練習モード
+</button>
+
+<div class="menu">
+
+<button>
+⭐<br>お気に入り
+</button>
+
+<button>
+📊<br>成績
+</button>
+
+<button>
+⚙️<br>設定
+</button>
+
+<button>
+❓<br>使い方
 </button>
 
 </div>
 
+</div>
 
-
-
-
-
-
+<!-- クイズ画面 -->
 
 <div id="quizArea" style="display:none;">
 
-<button id="homeButton" class="homeButton">
+<div class="topBar">
+
+<button id="homeButton">
 ← 戻る
 </button>
 
-<div id="score" class="score">
-
-現在の得点：0 / 10
+<div id="score">
+現在の得点 0 / 10
+</div>
 
 </div>
 
-
-
-
+<h2 id="questionCount">
+問題 1 / 10
+</h2>
 
 <div id="question">
 
-問題を読み込み中…
+問題を読み込み中...
 
 </div>
 
+<div class="teacher">
 
+<img src="sim.png" class="simTeacher">
 
+<div class="balloon">
 
+よく聞いて<br>
+考えてみてね！
 
+</div>
 
-<!-- 発音ボタン -->
+</div>
 
-<button id="speakButton">
+<button id="speakButton" class="speakButton">
 
-🔊 発音を聞く
+🔊 発音
 
 </button>
-
-
-
-
-
-
-
 
 <div id="choices">
 
 </div>
 
-
-
-
-
-
-
-
 <div id="result">
 
 </div>
-
-
-
-
-
-
-
 
 <div id="explanation">
 
 </div>
 
-
-
-
-
-
-
-
-<div id="nextArea">
-
-
-<button id="nextButton" style="display:none;">
+<button id="nextButton" class="nextButton">
 
 次の問題へ
 
 </button>
 
+</div>
+
+<footer>
+
+© シムさんと学ぶ 韓国語オノマトペ
+
+</footer>
 
 </div>
 
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-<script src="script.js?v=22"></script>
+<script src="script.js?v=30"></script>
 
 <script>
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
+    navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
 </body>
-</html> 
+</html>
