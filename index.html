@@ -1,169 +1,182 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>
-韓国語って面白い！シムさんと楽しく学ぶ韓国語オノマトペ
-</title>
-
-
-<link rel="stylesheet" href="style.css?v=21">
-<link rel="manifest" href="manifest.json">
-
-</head>
-
-<body>
-
-
-<div class="container">
-
-
-<h1>
-🌸 シムさんと学ぶ<br>
-  韓国語オノマトペクイズ
-</h1>
-
-
-<div id="startArea">
-
-<p class="catchcopy">
-韓国語をもっと身近に♪<br>
-クイズ形式で楽しく覚えよう！
-</p>
-
-<button id="startButton">
-10問チャレンジ開始
-</button>
-
-</div>
-
-
-
-
-
-
-
-
-<div id="quizArea" style="display:none;">
-
-<button id="homeButton" class="homeButton">
-← 戻る
-</button>
-
-<div id="score" class="score">
-
-現在の得点：0 / 10
-
-</div>
-
-
-
-
-
-<div id="question">
-
-問題を読み込み中…
-
-</div>
-
-
-
-
-
-
-<!-- 発音ボタン -->
-
-<button id="speakButton">
-
-🔊 発音を聞く
-
-</button>
-
-
-
-
-
-
-
-
-<div id="choices">
-
-</div>
-
-
-
-
-
-
-
-
-<div id="result">
-
-</div>
-
-
-
-
-
-
-
-
-<div id="explanation">
-
-</div>
-
-
-
-
-
-
-
-
-<div id="nextArea">
-
-
-<button id="nextButton" style="display:none;">
-
-次の問題へ
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-<script src="script.js?v=21"></script>
-
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* 全体の基本設定 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
-</script>
 
-</body>
-</html>
+body {
+  background: linear-gradient(135deg, #FFF5F7 0%, #F3E8FF 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 16px;
+  color: #333333;
+}
+
+/* メインカードコンテナ */
+.container {
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 28px;
+  padding: 32px 24px;
+  box-shadow: 0 12px 32px rgba(183, 152, 212, 0.18);
+  position: relative;
+  text-align: center;
+}
+
+/* ヘッダータイトル */
+h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #4A3E56;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+/* スタートエリア */
+.catchcopy {
+  font-size: 0.95rem;
+  color: #7A6B88;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* ボタン共通デザイン */
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+/* スタートボタン / 次へボタン */
+#startButton, #nextButton {
+  width: 100%;
+  background: linear-gradient(135deg, #FF8EAB 0%, #FF6B8B 100%);
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  padding: 16px;
+  box-shadow: 0 6px 16px rgba(255, 107, 139, 0.35);
+}
+
+#startButton:active, #nextButton:active {
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(255, 107, 139, 0.2);
+}
+
+/* 戻るボタン */
+.homeButton {
+  position: absolute;
+  top: 24px;
+  left: 20px;
+  background: #F3F0F7;
+  color: #6B5B7B;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border-radius: 20px;
+}
+
+.homeButton:hover {
+  background: #E5DFED;
+}
+
+/* 得点表示 */
+.score {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #8A7A9B;
+  background: #F8F5FA;
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* 問題文エリア */
+#question {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #2D2335;
+  background: #FAF8FC;
+  border: 2px dashed #E2D9EC;
+  border-radius: 20px;
+  padding: 24px 16px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* 音声ボタン */
+#speakButton {
+  background: #FFF0F4;
+  color: #FF5277;
+  border: 1.5px solid #FFD1DC;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#speakButton:active {
+  background: #FFE0E8;
+}
+
+/* 選択肢ボタンエリア */
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* 選択肢ボタン（JSで動的生成される想定） */
+#choices button {
+  width: 100%;
+  background: #FFFFFF;
+  color: #4A3E56;
+  border: 2px solid #EAE4F0;
+  padding: 14px 16px;
+  font-size: 1rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+#choices button:hover {
+  border-color: #FFB3C6;
+  background: #FFF9FA;
+}
+
+#choices button:active {
+  transform: scale(0.98);
+}
+
+/* 解説・結果エリア */
+#result {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+#explanation {
+  font-size: 0.9rem;
+  color: #665875;
+  background: #F6F3F9;
+  padding: 14px;
+  border-radius: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: left;
+}
